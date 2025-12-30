@@ -480,3 +480,242 @@
     background: var(--gray-100);
     color: var(--gray-700);
 }
+
+/* ========================================
+   StudentIT - Payments Page Styles
+   ======================================== */
+
+.payment-hero {
+    background: var(--primary-gradient);
+    border-radius: var(--radius-2xl);
+    padding: 32px 24px;
+    color: var(--white);
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 24px;
+    box-shadow: 0 20px 40px rgba(42, 56, 168, 0.25);
+}
+
+.payment-hero::before {
+    content: '';
+    position: absolute;
+    top: -50px;
+    right: -50px;
+    width: 200px;
+    height: 200px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+}
+
+.payment-hero-label {
+    font-size: 14px;
+    opacity: 0.8;
+    margin-bottom: 8px;
+    display: block;
+}
+
+.payment-hero-amount {
+    font-size: 42px;
+    font-weight: 800;
+    margin-bottom: 8px;
+}
+
+.payment-hero-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.payment-badge {
+    padding: 6px 14px;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(8px);
+    border-radius: var(--radius-full);
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.payment-method-section {
+    margin-bottom: 24px;
+}
+
+.payment-card-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.payment-method-card {
+    background: var(--white);
+    border-radius: var(--radius-xl);
+    padding: 18px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    box-shadow: var(--shadow-sm);
+    border: 2px solid transparent;
+    transition: var(--transition-base);
+}
+
+.payment-method-card.active {
+    border-color: #5c76a0;
+    background: rgba(42, 56, 168, 0.02);
+}
+
+.method-icon {
+    width: 44px;
+    height: 44px;
+    background: var(--gray-100);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--gray-600);
+}
+
+.method-info {
+    flex: 1;
+}
+
+.method-name {
+    display: block;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--gray-900);
+}
+
+.method-details {
+    font-size: 13px;
+    color: var(--gray-500);
+}
+
+/* ========================================
+   StudentIT - Resources Page Styles
+   ======================================== */
+
+.resource-hero {
+    background: #f8fafc;
+    border-radius: var(--radius-2xl);
+    padding: 24px;
+    margin-bottom: 24px;
+    border: 1px solid var(--gray-100);
+}
+
+.search-box {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.search-box input {
+    width: 100%;
+    padding: 14px 18px 14px 48px;
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-xl);
+    font-size: 15px;
+    color: var(--gray-900);
+    transition: var(--transition-base);
+}
+
+.search-box input:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 4px rgba(42, 56, 168, 0.1);
+}
+
+.search-box svg {
+    position: absolute;
+    left: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--gray-400);
+}
+
+.resource-categories {
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    padding-bottom: 8px;
+    scrollbar-width: none;
+}
+
+.category-chip {
+    padding: 8px 16px;
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-full);
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--gray-600);
+    white-space: nowrap;
+    transition: var(--transition-base);
+}
+
+.category-chip.active {
+    background: var(--primary);
+    color: var(--white);
+    border-color: var(--primary);
+}
+
+.resource-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+}
+
+.resource-detailed-card {
+    background: var(--white);
+    border-radius: var(--radius-xl);
+    padding: 16px;
+    box-shadow: var(--shadow-md);
+    transition: var(--transition-base);
+}
+
+.resource-detailed-card:active {
+    transform: scale(0.98);
+}
+
+.resource-icon-wrapper {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 12px;
+}
+
+.resource-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--gray-900);
+    margin-bottom: 4px;
+}
+
+.resource-meta {
+    font-size: 11px;
+    color: var(--gray-500);
+    display: block;
+}
+
+.featured-resource {
+    grid-column: span 2;
+    background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+    color: var(--white);
+    position: relative;
+    padding: 24px;
+    border-radius: var(--radius-2xl);
+    margin-bottom: 8px;
+    overflow: hidden;
+}
+
+.featured-resource::after {
+    content: 'NEW';
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: var(--primary);
+    padding: 4px 8px;
+    border-radius: 6px;
+    font-size: 10px;
+    font-weight: 900;
+}
