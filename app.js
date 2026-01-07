@@ -20,6 +20,12 @@ const toast = document.getElementById('toast');
 const toastMessage = document.getElementById('toastMessage');
 const quickCheckIn = document.getElementById('quickCheckIn');
 
+// Learning-Focused Home Page Elements
+const homeLessonCard = document.getElementById('homeLessonCard');
+const homeStats = document.querySelectorAll('.home-stat');
+const homeUpnextItems = document.querySelectorAll('.home-upnext-item');
+const homeUpnextAll = document.querySelector('.home-upnext-all');
+
 // State
 let isCheckedIn = false;
 let checkInTime = null;
@@ -271,3 +277,69 @@ style.textContent = `
     }
 `;
 document.head.appendChild(style);
+
+// ========================================
+// Learning-Focused Home Page Interactions
+// ========================================
+
+// Helper: Navigate to a page
+function navigateToPage(pageId) {
+    navItems.forEach(nav => nav.classList.remove('active'));
+    const targetNav = document.querySelector(`[data-page="${pageId}"]`);
+    if (targetNav) targetNav.classList.add('active');
+
+    pages.forEach(page => page.classList.remove('active'));
+    const pageEl = document.getElementById(pageId);
+    if (pageEl) pageEl.classList.add('active');
+
+    // Haptic feedback
+    if (navigator.vibrate) {
+        navigator.vibrate(10);
+    }
+}
+
+// Home Lesson Card - Click to continue learning
+if (homeLessonCard) {
+    homeLessonCard.addEventListener('click', () => {
+        // For now, show toast - in real app, this would open video player
+        showToast('Opening lesson...');
+
+        // Haptic feedback
+        if (navigator.vibrate) {
+            navigator.vibrate(15);
+        }
+    });
+}
+
+// Home Stats Navigation
+homeStats.forEach(stat => {
+    stat.addEventListener('click', () => {
+        const targetPage = stat.dataset.nav;
+        if (targetPage) {
+            navigateToPage(targetPage);
+        }
+    });
+});
+
+// Home Up Next Items
+homeUpnextItems.forEach(item => {
+    item.addEventListener('click', () => {
+        // For now, show toast - in real app, this would open the lesson/quiz
+        showToast('Loading content...');
+
+        // Haptic feedback
+        if (navigator.vibrate) {
+            navigator.vibrate(10);
+        }
+    });
+});
+
+// Home Up Next "See All" button
+if (homeUpnextAll) {
+    homeUpnextAll.addEventListener('click', () => {
+        const targetPage = homeUpnextAll.dataset.nav;
+        if (targetPage) {
+            navigateToPage(targetPage);
+        }
+    });
+}

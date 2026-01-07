@@ -4,6 +4,10 @@
  */
 
 document.addEventListener('DOMContentLoaded', () => {
+    // Check for saved theme
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    document.documentElement.setAttribute('data-theme', savedTheme);
+
     // Populate More Page
     const morePage = document.getElementById('more');
     if (morePage) {
@@ -1000,16 +1004,37 @@ function initBackButtons() {
 // Initialize Settings Toggles
 function initSettings() {
     const toggles = document.querySelectorAll('.toggle-switch');
+    const currentTheme = document.documentElement.getAttribute('data-theme');
 
     toggles.forEach(toggle => {
+        const setting = toggle.dataset.setting;
+
+        // Set initial state for dark mode toggle
+        if (setting === 'dark-mode') {
+            if (currentTheme === 'dark') {
+                toggle.classList.add('active');
+            } else {
+                toggle.classList.remove('active');
+            }
+        }
+
         toggle.addEventListener('click', () => {
             toggle.classList.toggle('active');
-            const setting = toggle.dataset.setting;
             const isActive = toggle.classList.contains('active');
 
-            // Show feedback
-            if (typeof showToast === 'function') {
-                showToast(isActive ? 'Setting enabled' : 'Setting disabled');
+            if (setting === 'dark-mode') {
+                const theme = isActive ? 'dark' : 'light';
+                document.documentElement.setAttribute('data-theme', theme);
+                localStorage.setItem('theme', theme);
+
+                if (typeof showToast === 'function') {
+                    showToast(isActive ? 'Dark mode activated' : 'Light mode activated');
+                }
+            } else {
+                // Show feedback for other toggles
+                if (typeof showToast === 'function') {
+                    showToast(isActive ? 'Setting enabled' : 'Setting disabled');
+                }
             }
         });
     });
