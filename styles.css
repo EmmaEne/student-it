@@ -104,8 +104,8 @@ a {
     height: 72px;
     background: var(--white);
     display: flex;
-    justify-content: space-around;
-    align-items: center;
+    justify-content: stretch;
+    align-items: stretch;
     box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.08);
     z-index: 1000;
     border-top-left-radius: var(--radius-xl);
@@ -113,11 +113,12 @@ a {
 }
 
 .nav-item {
+    flex: 1;
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     gap: 4px;
-    padding: 8px 16px;
     color: var(--gray-400);
     transition: var(--transition-base);
     border-radius: var(--radius-lg);
@@ -143,6 +144,11 @@ a {
 
 .nav-item.active span {
     font-weight: 600;
+}
+
+.nav-item *,
+.more-menu-item * {
+    pointer-events: none;
 }
 
 /* Header */

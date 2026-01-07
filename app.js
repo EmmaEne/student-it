@@ -19,10 +19,6 @@ const currentDateEl = document.getElementById('currentDate');
 const toast = document.getElementById('toast');
 const toastMessage = document.getElementById('toastMessage');
 const quickCheckIn = document.getElementById('quickCheckIn');
-const moreNavBtn = document.getElementById('moreNavBtn');
-const moreMenuOverlay = document.getElementById('moreMenuOverlay');
-const closeMoreMenu = document.getElementById('closeMoreMenu');
-const moreMenuItems = document.querySelectorAll('.more-menu-item');
 
 // State
 let isCheckedIn = false;
@@ -32,13 +28,19 @@ let durationInterval = null;
 // Navigation
 navItems.forEach(item => {
     item.addEventListener('click', (e) => {
-        e.preventDefault();
-        const targetPage = item.dataset.page;
+        // e.preventDefault(); // Removed to allow natural event bubbling if needed, though we handle target below
+
+        let target = e.target;
+        // Closest nav-item check to ensure we get the container even if pointer-events: none was somehow bypassed
+        const navItem = target.closest('.nav-item');
+        if (!navItem) return;
+
+        const targetPage = navItem.dataset.page;
         if (!targetPage) return;
 
         // Update nav items
         navItems.forEach(nav => nav.classList.remove('active'));
-        item.classList.add('active');
+        navItem.classList.add('active');
 
         // Update pages
         pages.forEach(page => {
@@ -55,54 +57,8 @@ navItems.forEach(item => {
     });
 });
 
-// More Menu Handling
-if (moreNavBtn) {
-    moreNavBtn.addEventListener('click', (e) => {
-        e.preventDefault();
-        moreMenuOverlay.classList.add('active');
-        document.body.style.overflow = 'hidden';
-    });
-}
-
-if (closeMoreMenu) {
-    closeMoreMenu.addEventListener('click', () => {
-        moreMenuOverlay.classList.remove('active');
-        document.body.style.overflow = '';
-    });
-}
-
-if (moreMenuOverlay) {
-    moreMenuOverlay.addEventListener('click', (e) => {
-        if (e.target === moreMenuOverlay) {
-            moreMenuOverlay.classList.remove('active');
-            document.body.style.overflow = '';
-        }
-    });
-}
-
-// More Menu Items Navigation
-moreMenuItems.forEach(item => {
-    item.addEventListener('click', () => {
-        const targetPage = item.dataset.page;
-
-        // Hide More Menu
-        moreMenuOverlay.classList.remove('active');
-        document.body.style.overflow = '';
-
-        // Update nav items (clear active state from main bottom nav)
-        navItems.forEach(nav => nav.classList.remove('active'));
-
-        // Update pages
-        pages.forEach(page => {
-            page.classList.remove('active');
-            if (page.id === targetPage) {
-                page.classList.add('active');
-            }
-        });
-
-        window.scrollTo(0, 0);
-    });
-});
+// More Menu removed - now using full-page More section
+// Navigation to More page is handled by the standard nav-item click handler
 
 // Time Display
 function updateTime() {
@@ -225,7 +181,7 @@ function formatTime(date) {
 }
 
 // Toast
-function showToast(message) {
+window.showToast = function (message) {
     if (toast && toastMessage) {
         toastMessage.textContent = message;
         toast.classList.add('show');

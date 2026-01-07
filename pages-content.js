@@ -621,7 +621,7 @@ function initLogbook() {
 }
 
 // Toast function
-function showToast(message) {
+window.showToast = function (message) {
     const toast = document.getElementById('toast');
     const toastMessage = document.getElementById('toastMessage');
     if (toast && toastMessage) {
