@@ -42,7 +42,9 @@ const toastMessage = document.getElementById('toastMessage');
 const quickCheckIn = document.getElementById('quickCheckIn');
 
 // Learning-Focused Home Page Elements
-const homeLessonCard = document.getElementById('homeLessonCard');
+const statusBanner = document.getElementById('statusBanner');
+const classAttendanceStatus = document.getElementById('classAttendanceStatus');
+const panelLogAttendanceBtn = document.getElementById('panelLogAttendanceBtn');
 const homeStats = document.querySelectorAll('.home-stat');
 const homeUpnextItems = document.querySelectorAll('.home-upnext-item');
 const homeUpnextAll = document.querySelector('.home-upnext-all');
@@ -87,11 +89,13 @@ navItems.forEach(item => {
 // More Menu removed - now using full-page More section
 // Navigation to More page is handled by the standard nav-item click handler
 
-// Time Display
+// Time & Banner Display
 function updateTime() {
     const now = new Date();
-    const hours = now.getHours().toString().padStart(2, '0');
-    const minutes = now.getMinutes().toString().padStart(2, '0');
+    const hoursNum = now.getHours();
+    const minutesNum = now.getMinutes();
+    const hours = hoursNum.toString().padStart(2, '0');
+    const minutes = minutesNum.toString().padStart(2, '0');
     const options = { weekday: 'long', month: 'short', day: 'numeric' };
 
     if (currentTimeEl) {
@@ -100,10 +104,69 @@ function updateTime() {
     if (currentDateEl) {
         currentDateEl.textContent = now.toLocaleDateString('en-US', options);
     }
+
+    updateClassStatus(hoursNum, minutesNum);
+}
+
+function updateClassStatus(h, m) {
+    // Current class is 14:00 - 15:30
+    const currentTimeMinutes = h * 60 + m;
+    const startTimeMinutes = 14 * 60; // 14:00
+    const endTimeMinutes = 15 * 60 + 30; // 15:30
+
+    const isOngoing = currentTimeMinutes >= startTimeMinutes && currentTimeMinutes <= endTimeMinutes;
+
+    if (statusBanner) {
+        const bannerText = statusBanner.querySelector('.banner-text');
+        if (isOngoing) {
+            statusBanner.className = 'status-banner ongoing';
+            if (bannerText) bannerText.textContent = 'Class is currently ongoing';
+        } else {
+            statusBanner.className = 'status-banner no-class';
+            if (bannerText) bannerText.textContent = 'No class at the moment';
+        }
+    }
+
+    // Update Dashboard Class Card
+    const classBadge = document.querySelector('.class-badge');
+    const classTimeValue = document.querySelector('.meta-value:nth-child(2)'); // Time meta value
+
+    if (classBadge) {
+        if (isOngoing) {
+            classBadge.className = 'class-badge ongoing';
+            classBadge.textContent = 'Ongoing';
+        } else if (currentTimeMinutes > endTimeMinutes) {
+            classBadge.className = 'class-badge completed';
+            classBadge.textContent = 'Completed';
+            // Update time label if completed
+            const timeMetaLabel = document.querySelectorAll('.meta-label')[1];
+            if (timeMetaLabel) timeMetaLabel.textContent = 'Ended At';
+            const timeMetaValue = document.querySelectorAll('.meta-value')[1];
+            if (timeMetaValue) timeMetaValue.textContent = '15:30';
+        } else {
+            classBadge.className = 'class-badge up-next';
+            classBadge.textContent = 'Up Next';
+        }
+    }
+
+    updateAttendanceIndicator();
+}
+
+function updateAttendanceIndicator() {
+    if (classAttendanceStatus && panelLogAttendanceBtn) {
+        if (isCheckedIn) {
+            classAttendanceStatus.style.display = 'flex';
+            panelLogAttendanceBtn.style.display = 'none';
+        } else {
+            classAttendanceStatus.style.display = 'none';
+            panelLogAttendanceBtn.style.display = 'block';
+        }
+    }
 }
 
 updateTime();
-setInterval(updateTime, 1000);
+setInterval(updateTime, 60000); // Update every minute
+
 
 // Attendance Check-in/out
 if (checkBtn) {
@@ -148,6 +211,9 @@ function checkIn() {
     // Start duration counter
     startDurationCounter();
 
+    // Update dashboard indicator
+    updateAttendanceIndicator();
+
     // Show toast
     showToast('Successfully checked in!');
 }
@@ -177,6 +243,9 @@ function checkOut() {
     if (durationInterval) {
         clearInterval(durationInterval);
     }
+
+    // Update dashboard indicator
+    updateAttendanceIndicator();
 
     // Show toast
     showToast('Successfully checked out!');
@@ -319,16 +388,16 @@ function navigateToPage(pageId) {
     }
 }
 
-// Home Lesson Card - Click to continue learning
-if (homeLessonCard) {
-    homeLessonCard.addEventListener('click', () => {
-        // For now, show toast - in real app, this would open video player
-        showToast('Opening lesson...');
-
-        // Haptic feedback
-        if (navigator.vibrate) {
-            navigator.vibrate(15);
-        }
+// Log Attendance Button in Class Panel
+if (panelLogAttendanceBtn) {
+    panelLogAttendanceBtn.addEventListener('click', () => {
+        // Navigate to attendance page and check in
+        navigateToPage('attendance');
+        setTimeout(() => {
+            if (!isCheckedIn) {
+                checkIn();
+            }
+        }, 300);
     });
 }
 

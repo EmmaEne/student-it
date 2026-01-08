@@ -16,43 +16,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 <button class="filter-tab" data-filter="pending">Pending</button>
             </div>
 
-            <!-- Add Project Button -->
-            <button class="fab-btn" id="addProjectBtn" style="bottom: 100px;">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                    <line x1="12" y1="5" x2="12" y2="19"/>
-                    <line x1="5" y1="12" x2="19" y2="12"/>
-                </svg>
-            </button>
+            <!-- Project Modal Removed (Admin Only) -->
 
-            <!-- Project Modal -->
-            <div class="modal-overlay" id="projectModal">
-                <div class="modal">
-                    <div class="modal-header">
-                        <h2 class="modal-title">New Project</h2>
-                        <button class="modal-close" id="closeProjectModal">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <line x1="18" y1="6" x2="6" y2="18"/>
-                                <line x1="6" y1="6" x2="18" y2="18"/>
-                            </svg>
-                        </button>
-                    </div>
-                    <form class="entry-form" id="projectForm">
-                        <div class="form-group">
-                            <label class="form-label">Project Title</label>
-                            <input type="text" class="tag-input" id="projectTitle" placeholder="Enter project name" style="width: 100%; border: 2px solid var(--gray-200); border-radius: var(--radius-lg); padding: 12px;" required>
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">Description</label>
-                            <textarea class="form-textarea" id="projectDescription" placeholder="Briefly describe what this project is about..." rows="3" required></textarea>
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">Due Date</label>
-                            <input type="date" class="tag-input" id="projectDueDate" style="width: 100%; border: 2px solid var(--gray-200); border-radius: var(--radius-lg); padding: 12px;" required>
-                        </div>
-                        <button type="submit" class="submit-btn" style="margin-top: 10px;">Create Project</button>
-                    </form>
-                </div>
-            </div>
 
             <!-- Projects List -->
             <section class="projects-list">
@@ -517,11 +482,6 @@ document.addEventListener('DOMContentLoaded', () => {
 // Initialize Projects Page
 function initProjectPage() {
     const filterTabs = document.querySelectorAll('.filter-tab');
-    const addProjectBtn = document.getElementById('addProjectBtn');
-    const projectModal = document.getElementById('projectModal');
-    const closeProjectModal = document.getElementById('closeProjectModal');
-    const projectForm = document.getElementById('projectForm');
-
     if (!filterTabs.length) return;
 
     // Filter Tabs
@@ -544,68 +504,6 @@ function initProjectPage() {
             });
         });
     });
-
-    // Modal Handling
-    if (addProjectBtn && projectModal) {
-        addProjectBtn.addEventListener('click', () => {
-            projectModal.classList.add('active');
-            document.body.style.overflow = 'hidden';
-        });
-    }
-
-    if (closeProjectModal && projectModal) {
-        closeProjectModal.addEventListener('click', () => {
-            projectModal.classList.remove('active');
-            document.body.style.overflow = '';
-        });
-    }
-
-    // Form Submit
-    if (projectForm) {
-        projectForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const title = document.getElementById('projectTitle').value;
-            const desc = document.getElementById('projectDescription').value;
-            const date = document.getElementById('projectDueDate').value;
-
-            if (!title.trim() || !desc.trim()) {
-                showToast('Please fill in all fields');
-                return;
-            }
-
-            // Create new project card
-            const projectsList = document.querySelector('.projects-list');
-            if (projectsList) {
-                const projectCard = document.createElement('div');
-                projectCard.className = 'project-card in-progress';
-                projectCard.innerHTML = `
-                    <div class="project-header">
-                        <div class="project-status-badge in-progress">In Progress</div>
-                        <button class="project-menu-btn"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="5" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="12" cy="19" r="2"/></svg></button>
-                    </div>
-                    <h3 class="project-title">${title}</h3>
-                    <p class="project-description">${desc}</p>
-                    <div class="project-progress">
-                        <div class="project-progress-bar"><div class="project-progress-fill" style="width: 0%"></div></div>
-                        <span class="project-progress-text">0%</span>
-                    </div>
-                    <div class="project-footer">
-                        <div class="project-due">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-                            <span>Due ${new Date(date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}</span>
-                        </div>
-                        <button class="project-action-btn">Start</button>
-                    </div>
-                `;
-                projectsList.prepend(projectCard);
-            }
-
-            showToast('Project created successfully!');
-            if (projectModal) projectModal.classList.remove('active');
-            document.body.style.overflow = '';
-            projectForm.reset();
-        });
-    }
 }
 
 // Initialize Logbook
