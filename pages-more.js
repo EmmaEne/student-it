@@ -618,10 +618,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     <span class="announcement-date">Dec 28, 2025</span>
                     <h3 class="announcement-title">Holiday Schedule</h3>
                     <p class="announcement-preview">The training center will be closed from December 31st to January 2nd for the New Year holiday...</p>
-                    <span class="announcement-category">Schedule</span>
-                </div>
             </div>
         `;
+        initAnnouncements();
     }
 
     // Populate Supervisor Page
