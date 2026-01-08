@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Login | StudentIT</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            background-color: var(--gray-50);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .login-container {
+            width: 100%;
+            max-width: 400px;
+            animation: slideInUp 0.6s ease;
+        }
+
+        .login-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .login-logo {
+            width: 64px;
+            height: 64px;
+            background: var(--primary-gradient);
+            border-radius: var(--radius-xl);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 16px;
+            color: var(--white);
+            font-size: 24px;
+            font-weight: 800;
+            box-shadow: 0 8px 20px rgba(42, 56, 168, 0.2);
+        }
+
+        .login-title {
+            font-size: 28px;
+            font-weight: 800;
+            color: var(--gray-900);
+            margin-bottom: 8px;
+        }
+
+        .login-subtitle {
+            color: var(--gray-500);
+            font-size: 15px;
+        }
+
+        .login-form {
+            background: var(--white);
+            padding: 32px;
+            border-radius: var(--radius-2xl);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--gray-700);
+            margin-bottom: 8px;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 14px 16px;
+            border: 2px solid var(--gray-100);
+            border-radius: var(--radius-lg);
+            font-size: 15px;
+            transition: var(--transition-base);
+            background: var(--gray-50);
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            background: var(--white);
+            box-shadow: 0 0 0 4px rgba(42, 56, 168, 0.1);
+        }
+
+        .forgot-password {
+            display: block;
+            text-align: right;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--primary);
+            margin-top: -12px;
+            margin-bottom: 24px;
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 16px;
+            background: var(--primary-gradient);
+            color: var(--white);
+            border: none;
+            border-radius: var(--radius-lg);
+            font-size: 16px;
+            font-weight: 700;
+            transition: var(--transition-base);
+            box-shadow: 0 4px 12px rgba(42, 56, 168, 0.2);
+        }
+
+        .login-btn:active {
+            transform: scale(0.98);
+        }
+
+        .login-footer {
+            text-align: center;
+            margin-top: 32px;
+            font-size: 14px;
+            color: var(--gray-500);
+        }
+
+        .signup-link {
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        /* Dark Mode support for Login */
+        [data-theme="dark"] body {
+            background-color: var(--gray-50);
+        }
+
+        [data-theme="dark"] .login-form {
+            background-color: var(--white);
+        }
+
+        [data-theme="dark"] .form-input {
+            background-color: var(--gray-100);
+            border-color: var(--gray-200);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="login-container">
+        <div class="login-header">
+            <div class="login-logo">IT</div>
+            <h1 class="login-title">Welcome back</h1>
+            <p class="login-subtitle">Please enter your details to sign in</p>
+        </div>
+
+        <form class="login-form" id="loginForm">
+            <div class="form-group">
+                <label class="form-label">Email Address</label>
+                <input type="email" class="form-input" placeholder="name@company.com" required
+                    value="student@itc.edu.ng">
+            </div>
+            <div class="form-group">
+                <label class="form-label">Password</label>
+                <input type="password" class="form-input" placeholder="••••••••" required value="password123">
+            </div>
+            <a href="#" class="forgot-password" id="forgotPassword">Forgot password?</a>
+            <button type="submit" class="login-btn">Sign In</button>
+        </form>
+
+        <div class="login-footer">
+            Don't have an account? <a href="#" class="signup-link">Contact Support</a>
+        </div>
+    </div>
+
+    <!-- Toast from main app for consistency -->
+    <div class="toast" id="toast">
+        <div class="toast-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="20,6 9,17 4,12" />
+            </svg>
+        </div>
+        <span class="toast-message" id="toastMessage">Action completed!</span>
+    </div>
+
+    <script>
+        // Check for saved theme
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        document.documentElement.setAttribute('data-theme', savedTheme);
+
+        const loginForm = document.getElementById('loginForm');
+        const forgotPassword = document.getElementById('forgotPassword');
+
+        loginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const btn = loginForm.querySelector('.login-btn');
+            const originalText = btn.textContent;
+
+            // Show loading state
+            btn.disabled = true;
+            btn.textContent = 'Signing in...';
+
+            setTimeout(() => {
+                localStorage.setItem('isLoggedIn', 'true');
+                window.location.href = 'index.html';
+            }, 1200);
+        });
+
+        forgotPassword.addEventListener('click', (e) => {
+            e.preventDefault();
+            showToast('Reset link sent to your email!');
+        });
+
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            const toastMessage = document.getElementById('toastMessage');
+            toastMessage.textContent = message;
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 3000);
+        }
+    </script>
+</body>
+
+</html>

@@ -192,6 +192,21 @@ document.addEventListener('DOMContentLoaded', () => {
                         </div>
                     </div>
                 </section>
+                <!-- Logout Section -->
+                <section class="settings-section">
+                    <div class="settings-group">
+                        <div class="settings-row logout-row" onclick="logout()" style="cursor: pointer;">
+                            <div class="settings-row-icon logout-icon" style="background: #fee2e2; color: #ef4444;">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/>
+                                </svg>
+                            </div>
+                            <div class="settings-row-content">
+                                <span class="settings-row-title" style="color: #ef4444;">Logout</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
             </div>
         `;
         initMorePage();
@@ -685,7 +700,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 </div>
 
                 <div class="profile-header-card">
-                    <button class="profile-edit-btn">
+                    <button class="profile-edit-btn" id="editProfileBtn">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
                             <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
@@ -694,6 +709,31 @@ document.addEventListener('DOMContentLoaded', () => {
                     <div class="profile-header-avatar">JD</div>
                     <h2 class="profile-header-name">John Doe</h2>
                     <p class="profile-header-id">STU/2025/0142</p>
+                </div>
+
+                <!-- Edit Profile Modal -->
+                <div class="modal-overlay" id="editProfileModal">
+                    <div class="modal">
+                        <div class="modal-header">
+                            <h2 class="modal-title">Edit Profile</h2>
+                            <button class="modal-close" id="closeProfileModal">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+                                </svg>
+                            </button>
+                        </div>
+                        <form class="entry-form" id="profileForm">
+                            <div class="form-group">
+                                <label class="form-label">Full Name</label>
+                                <input type="text" class="tag-input" id="editName" value="John Doe Okonkwo" style="width: 100%; border: 2px solid var(--gray-200); border-radius: var(--radius-lg); padding: 12px;" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Email Address</label>
+                                <input type="email" class="tag-input" id="editEmail" value="john.doe@email.com" style="width: 100%; border: 2px solid var(--gray-200); border-radius: var(--radius-lg); padding: 12px;" required>
+                            </div>
+                            <button type="submit" class="submit-btn" style="margin-top: 10px;">Save Changes</button>
+                        </form>
+                    </div>
                 </div>
 
                 <section class="section">
@@ -814,7 +854,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 </section>
 
                 <div style="margin-top: 32px; text-align: center;">
-                    <button class="project-action-btn" style="background: var(--danger); width: 100%; padding: 16px;">Log Out</button>
+                    <button class="project-action-btn" onclick="logout()" style="background: #ef4444; width: 100%; color: white; border: none; padding: 16px; font-weight: 700;">Log Out</button>
                 </div>
             </div>
         `;
@@ -974,6 +1014,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Initialize back buttons for all subpages
     initBackButtons();
+    initProfile();
+    initHelpPage();
+    initSettings();
 });
 
 // Initialize More Page Navigation
@@ -1057,6 +1100,116 @@ function initFAQ() {
             item.classList.toggle('open');
         });
     });
+}
+
+// Initialize Profile Page
+function initProfile() {
+    const editBtn = document.getElementById('editProfileBtn');
+    const modal = document.getElementById('editProfileModal');
+    const closeBtn = document.getElementById('closeProfileModal');
+    const form = document.getElementById('profileForm');
+
+    if (editBtn) {
+        editBtn.addEventListener('click', () => {
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+    }
+
+    if (closeBtn) {
+        closeBtn.addEventListener('click', () => {
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+        });
+    }
+
+    if (form) {
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const name = document.getElementById('editName').value;
+            document.querySelectorAll('.profile-header-name').forEach(el => el.textContent = name);
+            document.querySelectorAll('.user-name').forEach(el => el.textContent = name);
+
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+            showToast('Profile updated successfully!');
+        });
+    }
+}
+
+// Initialize Help Page
+function initHelpPage() {
+    const reportBtn = document.getElementById('reportIssueBtn');
+    const modal = document.getElementById('reportModal');
+    const closeBtn = document.getElementById('closeReportModal');
+    const form = document.getElementById('reportForm');
+
+    // Also re-init FAQs
+    initFAQs();
+
+    if (reportBtn) {
+        reportBtn.addEventListener('click', () => {
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+    }
+
+    if (closeBtn) {
+        closeBtn.addEventListener('click', () => {
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+        });
+    }
+
+    if (form) {
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+            showToast('Support ticket #ITC-4428 submitted!');
+            form.reset();
+        });
+    }
+}
+
+// Initialize Announcements
+function initAnnouncements() {
+    const items = document.querySelectorAll('.announcement-item');
+    const modal = document.getElementById('announcementModal');
+    const closeBtn = document.getElementById('closeAnnounceModal');
+    const doneBtn = document.getElementById('announceDoneBtn');
+
+    items.forEach(item => {
+        item.addEventListener('click', () => {
+            const title = item.querySelector('.announcement-title').textContent;
+            const date = item.querySelector('.announcement-date').textContent;
+            const category = item.querySelector('.announcement-category').textContent;
+            const preview = item.querySelector('.announcement-preview').textContent;
+
+            document.getElementById('modalTitle').textContent = title;
+            document.getElementById('modalDate').textContent = date;
+            document.getElementById('modalCategory').textContent = category;
+            document.getElementById('modalBody').textContent = preview + " This is the full detail of the announcement. Stay updated with all training center activities.";
+
+            modal.classList.add('active');
+            item.classList.remove('unread');
+            document.body.style.overflow = 'hidden';
+        });
+    });
+
+    if (closeBtn) {
+        closeBtn.addEventListener('click', () => {
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+        });
+    }
+
+    if (doneBtn) {
+        doneBtn.addEventListener('click', () => {
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+        });
+    }
 }
 
 // Navigate to Subpage

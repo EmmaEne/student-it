@@ -367,9 +367,96 @@ document.addEventListener('DOMContentLoaded', () => {
                         </div>
                     </div>
                 </div>
-                <button class="submit-btn" style="margin-top: 24px;">Proceed to Payment</button>
+                <button class="submit-btn" id="proceedToPaymentBtn" style="margin-top: 24px;">Proceed to Payment</button>
             </section>
+
+            <!-- Payment Modal -->
+            <div class="modal-overlay" id="paymentModal">
+                <div class="modal">
+                    <div class="modal-header">
+                        <h2 class="modal-title">Make Payment</h2>
+                        <button class="modal-close" id="closePaymentModal">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <line x1="18" y1="6" x2="6" y2="18"/>
+                                <line x1="6" y1="6" x2="18" y2="18"/>
+                            </svg>
+                        </button>
+                    </div>
+                    <form class="entry-form" id="paymentForm">
+                        <div class="payment-summary-card" style="background: var(--gray-50); padding: 16px; border-radius: var(--radius-lg); margin-bottom: 20px;">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                                <span style="color: var(--gray-500); font-size: 14px;">Item</span>
+                                <span style="font-weight: 600; font-size: 14px;">Tuition Balance</span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between;">
+                                <span style="color: var(--gray-500); font-size: 14px;">Amount</span>
+                                <span style="font-weight: 700; color: var(--primary); font-size: 18px;">$450.00</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Cardholder Name</label>
+                            <input type="text" class="tag-input" value="John Doe" style="width: 100%; border: 2px solid var(--gray-200); border-radius: var(--radius-lg); padding: 12px;" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Card Number</label>
+                            <input type="text" class="tag-input" placeholder="•••• •••• •••• 4242" style="width: 100%; border: 2px solid var(--gray-200); border-radius: var(--radius-lg); padding: 12px;" required>
+                        </div>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+                            <div class="form-group">
+                                <label class="form-label">Expiry</label>
+                                <input type="text" class="tag-input" placeholder="MM/YY" style="width: 100%; border: 2px solid var(--gray-200); border-radius: var(--radius-lg); padding: 12px;" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">CVC</label>
+                                <input type="text" class="tag-input" placeholder="•••" style="width: 100%; border: 2px solid var(--gray-200); border-radius: var(--radius-lg); padding: 12px;" required>
+                            </div>
+                        </div>
+                        <button type="submit" class="submit-btn" id="confirmPaymentBtn" style="margin-top: 10px;">Pay $450.00</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Receipt Page (Mocked as a full-page modal) -->
+            <div class="modal-overlay" id="receiptModal" style="background: var(--gray-50);">
+                <div class="subpage-content" style="max-width: 480px; margin: 0 auto; background: var(--gray-50);">
+                    <div class="subpage-header">
+                        <button class="modal-close" id="closeReceiptModal" style="background: var(--white); width: 40px; height: 40px; border-radius: 50%; box-shadow: var(--shadow-sm); display: flex; align-items: center; justify-content: center;">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 20px;">
+                                <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+                            </svg>
+                        </button>
+                        <h1 class="subpage-title">Receipt</h1>
+                        <button class="view-all-btn" onclick="window.print()" style="margin-left: auto;">Print</button>
+                    </div>
+
+                    <div class="receipt-card" style="background: var(--white); padding: 32px; border-radius: var(--radius-2xl); box-shadow: var(--shadow-lg); text-align: center; margin-top: 20px;">
+                        <div style="width: 64px; height: 64px; background: var(--success-light); color: var(--success); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px;">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" style="width: 32px;"><polyline points="20,6 9,17 4,12"/></svg>
+                        </div>
+                        <h2 style="font-size: 24px; font-weight: 800; color: var(--gray-900);">Payment Successful</h2>
+                        <p style="color: var(--gray-500); margin-bottom: 30px;">Transaction ID: #ITC-88294-XP</p>
+                        
+                        <div style="border-top: 1px dashed var(--gray-200); border-bottom: 1px dashed var(--gray-200); padding: 20px 0; margin-bottom: 30px; text-align: left;">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 12px;">
+                                <span style="color: var(--gray-500);">Date</span>
+                                <span style="font-weight: 600;">${new Date().toLocaleDateString()}</span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 12px;">
+                                <span style="color: var(--gray-500);">Payment Method</span>
+                                <span style="font-weight: 600;">Visa •••• 4242</span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 12px;">
+                                <span style="color: var(--gray-500);">Amount Paid</span>
+                                <span style="font-weight: 700; color: var(--primary);">$450.00</span>
+                            </div>
+                        </div>
+                        
+                        <button class="project-action-btn" id="doneReceiptBtn" style="width: 100%;">Done</button>
+                    </div>
+                </div>
+            </div>
         `;
+        initPayments();
     }
 
     // Populate Resources Page
@@ -616,6 +703,62 @@ function initLogbook() {
             entryForm.reset();
 
             // Add entry UI logic here if needed
+        });
+    }
+}
+
+// Initialize Payments
+function initPayments() {
+    const proceedBtn = document.getElementById('proceedToPaymentBtn');
+    const paymentModal = document.getElementById('paymentModal');
+    const closePaymentModal = document.getElementById('closePaymentModal');
+    const paymentForm = document.getElementById('paymentForm');
+    const receiptModal = document.getElementById('receiptModal');
+    const closeReceiptModal = document.getElementById('closeReceiptModal');
+    const doneReceiptBtn = document.getElementById('doneReceiptBtn');
+
+    if (proceedBtn && paymentModal) {
+        proceedBtn.addEventListener('click', () => {
+            paymentModal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+    }
+
+    if (closePaymentModal) {
+        closePaymentModal.addEventListener('click', () => {
+            paymentModal.classList.remove('active');
+            document.body.style.overflow = '';
+        });
+    }
+
+    if (paymentForm) {
+        paymentForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const btn = document.getElementById('confirmPaymentBtn');
+            btn.disabled = true;
+            btn.textContent = 'Processing...';
+
+            setTimeout(() => {
+                paymentModal.classList.remove('active');
+                receiptModal.classList.add('active');
+                btn.disabled = false;
+                btn.textContent = 'Pay $450.00';
+                showToast('Payment successful!');
+            }, 2000);
+        });
+    }
+
+    if (closeReceiptModal) {
+        closeReceiptModal.addEventListener('click', () => {
+            receiptModal.classList.remove('active');
+            document.body.style.overflow = '';
+        });
+    }
+
+    if (doneReceiptBtn) {
+        doneReceiptBtn.addEventListener('click', () => {
+            receiptModal.classList.remove('active');
+            document.body.style.overflow = '';
         });
     }
 }

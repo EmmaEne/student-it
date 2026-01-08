@@ -3,6 +3,17 @@
  * A modern, habit-forming student dashboard
  */
 
+// Session Check
+if (localStorage.getItem('isLoggedIn') !== 'true') {
+    window.location.href = 'login.html';
+}
+
+// Global Logout Function
+window.logout = function () {
+    localStorage.removeItem('isLoggedIn');
+    window.location.href = 'login.html';
+};
+
 // DOM Elements
 const navItems = document.querySelectorAll('.nav-item');
 const pages = document.querySelectorAll('.page');
