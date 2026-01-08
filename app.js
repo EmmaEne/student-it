@@ -14,6 +14,16 @@ window.logout = function () {
     window.location.href = 'login.html';
 };
 
+// Hide Loader
+window.addEventListener('load', () => {
+    const loader = document.getElementById('pageLoader');
+    if (loader) {
+        setTimeout(() => {
+            loader.classList.add('fade-out');
+        }, 800);
+    }
+});
+
 // DOM Elements
 const navItems = document.querySelectorAll('.nav-item');
 const pages = document.querySelectorAll('.page');
