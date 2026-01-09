@@ -551,7 +551,7 @@
     background: var(--primary-gradient);
     border-radius: var(--radius-2xl);
     padding: 24px;
-    color: var(--white);
+    color: rgb(253, 243, 243);
     margin-bottom: 24px;
     position: relative;
     overflow: hidden;

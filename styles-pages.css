@@ -699,7 +699,7 @@
 
 .featured-resource {
     grid-column: span 2;
-    background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+    background: var(--primary-gradient);
     color: var(--white);
     position: relative;
     padding: 24px;

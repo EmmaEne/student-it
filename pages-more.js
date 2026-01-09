@@ -699,41 +699,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 </div>
 
                 <div class="profile-header-card">
-                    <button class="profile-edit-btn" id="editProfileBtn">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
-                            <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
-                        </svg>
-                    </button>
                     <div class="profile-header-avatar">JD</div>
                     <h2 class="profile-header-name">John Doe</h2>
                     <p class="profile-header-id">STU/2025/0142</p>
                 </div>
 
-                <!-- Edit Profile Modal -->
-                <div class="modal-overlay" id="editProfileModal">
-                    <div class="modal">
-                        <div class="modal-header">
-                            <h2 class="modal-title">Edit Profile</h2>
-                            <button class="modal-close" id="closeProfileModal">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
-                                </svg>
-                            </button>
-                        </div>
-                        <form class="entry-form" id="profileForm">
-                            <div class="form-group">
-                                <label class="form-label">Full Name</label>
-                                <input type="text" class="tag-input" id="editName" value="John Doe Okonkwo" style="width: 100%; border: 2px solid var(--gray-200); border-radius: var(--radius-lg); padding: 12px;" required>
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label">Email Address</label>
-                                <input type="email" class="tag-input" id="editEmail" value="john.doe@email.com" style="width: 100%; border: 2px solid var(--gray-200); border-radius: var(--radius-lg); padding: 12px;" required>
-                            </div>
-                            <button type="submit" class="submit-btn" style="margin-top: 10px;">Save Changes</button>
-                        </form>
-                    </div>
-                </div>
+
 
                 <section class="section">
                     <div class="section-header">
@@ -1013,7 +984,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Initialize back buttons for all subpages
     initBackButtons();
-    initProfile();
     initHelpPage();
     initSettings();
 });
@@ -1101,40 +1071,7 @@ function initFAQ() {
     });
 }
 
-// Initialize Profile Page
-function initProfile() {
-    const editBtn = document.getElementById('editProfileBtn');
-    const modal = document.getElementById('editProfileModal');
-    const closeBtn = document.getElementById('closeProfileModal');
-    const form = document.getElementById('profileForm');
 
-    if (editBtn) {
-        editBtn.addEventListener('click', () => {
-            modal.classList.add('active');
-            document.body.style.overflow = 'hidden';
-        });
-    }
-
-    if (closeBtn) {
-        closeBtn.addEventListener('click', () => {
-            modal.classList.remove('active');
-            document.body.style.overflow = '';
-        });
-    }
-
-    if (form) {
-        form.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const name = document.getElementById('editName').value;
-            document.querySelectorAll('.profile-header-name').forEach(el => el.textContent = name);
-            document.querySelectorAll('.user-name').forEach(el => el.textContent = name);
-
-            modal.classList.remove('active');
-            document.body.style.overflow = '';
-            showToast('Profile updated successfully!');
-        });
-    }
-}
 
 // Initialize Help Page
 function initHelpPage() {

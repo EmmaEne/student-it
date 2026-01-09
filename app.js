@@ -49,6 +49,12 @@ const homeStats = document.querySelectorAll('.home-stat');
 const homeUpnextItems = document.querySelectorAll('.home-upnext-item');
 const homeUpnextAll = document.querySelector('.home-upnext-all');
 
+// New Home Attendance Elements
+const homeLogAttendanceBtn = document.getElementById('homeLogAttendanceBtn');
+const homeAttendanceStatusText = document.getElementById('homeAttendanceStatusText');
+const homeAttendanceSection = document.getElementById('homeAttendanceSection');
+const notificationBtn = document.getElementById('notificationBtn');
+
 // State
 let isCheckedIn = false;
 let checkInTime = null;
@@ -157,9 +163,13 @@ function updateAttendanceIndicator() {
         if (isCheckedIn) {
             classAttendanceStatus.style.display = 'flex';
             panelLogAttendanceBtn.style.display = 'none';
+            if (homeAttendanceStatusText) homeAttendanceStatusText.textContent = 'Attendance Logged';
+            if (homeLogAttendanceBtn) homeLogAttendanceBtn.style.display = 'none';
         } else {
             classAttendanceStatus.style.display = 'none';
             panelLogAttendanceBtn.style.display = 'block';
+            if (homeAttendanceStatusText) homeAttendanceStatusText.textContent = 'You haven\'t logged today';
+            if (homeLogAttendanceBtn) homeLogAttendanceBtn.style.display = 'block';
         }
     }
 }
@@ -391,13 +401,8 @@ function navigateToPage(pageId) {
 // Log Attendance Button in Class Panel
 if (panelLogAttendanceBtn) {
     panelLogAttendanceBtn.addEventListener('click', () => {
-        // Navigate to attendance page and check in
+        // Just navigate to attendance page, let student click check-in manually
         navigateToPage('attendance');
-        setTimeout(() => {
-            if (!isCheckedIn) {
-                checkIn();
-            }
-        }, 300);
     });
 }
 
@@ -431,5 +436,19 @@ if (homeUpnextAll) {
         if (targetPage) {
             navigateToPage(targetPage);
         }
+    });
+}
+
+// Home Log Attendance Button
+if (homeLogAttendanceBtn) {
+    homeLogAttendanceBtn.addEventListener('click', () => {
+        navigateToPage('logbook');
+    });
+}
+
+// Notification Button
+if (notificationBtn) {
+    notificationBtn.addEventListener('click', () => {
+        navigateToPage('announcements');
     });
 }
