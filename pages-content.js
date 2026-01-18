@@ -9,88 +9,133 @@ document.addEventListener('DOMContentLoaded', () => {
     if (projectsPage) {
         projectsPage.innerHTML = `
             <div class="projects-view-container" id="projectsViewContainer">
-                <!-- Filter Tabs -->
-                <div class="filter-tabs">
+                <div class="projects-desktop-layout">
+                    <!-- Main Column (Left/Center) -->
+                    <div class="projects-main-column">
+                        <!-- Top Priority: Featured Pending Project -->
+                        <div class="project-featured-card pending" id="priorityProject">
+                            <div class="countdown-modern urgent" id="projectCountdown">
+                                <div class="countdown-icon-pulse"></div>
+                                <span class="countdown-text">Due in <span class="countdown-value" id="countdownValue">2d 14h 30m</span></span>
+                            </div>
+                            <div class="featured-tag">Upcoming Deadline</div>
+                            <div class="project-header">
+                                <h3 class="project-title">E-Commerce Dashboard</h3>
+                            </div>
+                            
+                            <div class="project-description-wrapper">
+                                <p class="project-description truncated" id="priorityDesc">Build a responsive admin dashboard with charts, tables, and user management. Implement a complex navigation system with collapsible sidebar, implement real-time data visualization with Chart.js, create CRUD operations interface for products and users, and ensure full mobile responsiveness.</p>
+                                <button class="see-more-link" id="seeMoreBtn">See more</button>
+                            </div>
+
+                            <div class="featured-footer">
+                                <button class="project-submit-btn-premium" id="submitProjectBtn">
+                                    <span>Submit Project</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Pending Projects Section -->
+                        <div class="projects-section">
+                            <h4 class="projects-section-title">Pending Projects</h4>
+                            <div class="projects-grid">
+                                <div class="project-modern-item" data-project="2">
+                                    <div class="project-main">
+                                        <div class="project-info-stack">
+                                            <h3 class="project-title">Blog Platform</h3>
+                                            <div class="project-description-wrapper">
+                                                <p class="project-description truncated">Full-stack blog with authentication, CRUD operations, comments system, and markdown support.</p>
+                                                <button class="see-more-link">See more</button>
+                                            </div>
+                                        </div>
+                                        <div class="project-meta-row">
+                                            <div class="project-due-inline">
+                                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><path d="M16 2v4M8 2v4M3 10h18"/>
+                                                </svg>
+                                                <span>Due Jan 25</span>
+                                            </div>
+                                            <button class="submit-btn-minimal" data-project="2">Submit</button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="project-modern-item not-started" data-project="3">
+                                    <div class="project-main">
+                                        <div class="project-info-stack">
+                                            <h3 class="project-title">Social Media Clone</h3>
+                                            <div class="project-description-wrapper">
+                                                <p class="project-description truncated">Build a mini social platform with posts, likes, follows, and real-time notifications.</p>
+                                                <button class="see-more-link">See more</button>
+                                            </div>
+                                        </div>
+                                        <div class="project-meta-row">
+                                            <div class="project-due-inline urgent">
+                                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><path d="M16 2v4M8 2v4M3 10h18"/>
+                                                </svg>
+                                                <span>Due Feb 10</span>
+                                            </div>
+                                            <button class="submit-btn-minimal secondary">Start</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Side Column (Right) -->
+                    <aside class="projects-side-column">
+                        <div class="side-panel-card">
+                            <h4 class="side-panel-title">Project Overview</h4>
+                            <!-- Filter Tabs -->
+                            <div class="filter-tabs-desktop">
+                                <button class="filter-tab active" data-filter="all">All Projects</button>
+                                <button class="filter-tab" data-filter="pending">Pending</button>
+                                <button class="filter-tab" data-filter="completed">Completed</button>
+                            </div>
+                        </div>
+
+                        <!-- Stats Card -->
+                        <div class="side-stats-card">
+                            <div class="stat-item">
+                                <span class="stat-label">Total Assigned</span>
+                                <span class="stat-value">6</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">In Review</span>
+                                <span class="stat-value">2</span>
+                            </div>
+                        </div>
+
+                        <!-- Completed Section in Sidebar for Desktop -->
+                        <div class="projects-section desktop-only">
+                            <h4 class="projects-section-title">Recently Completed</h4>
+                            <div class="project-modern-item completed" data-project="4">
+                                <div class="project-main">
+                                    <h3 class="project-title">Portfolio Website</h3>
+                                    <div class="project-grade-badge">
+
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/>
+                                        </svg>
+                                        <span>Grade: A</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </aside>
+                </div>
+
+                <!-- Mobile Filter Tabs (Kept for mobile view) -->
+                <div class="filter-tabs mobile-only">
                     <button class="filter-tab active" data-filter="all">All Projects</button>
                     <button class="filter-tab" data-filter="pending">Pending</button>
                     <button class="filter-tab" data-filter="completed">Completed</button>
                 </div>
 
-                <!-- Projects Content -->
-                <section class="projects-list">
-                    <!-- Top Priority: Featured Pending Project -->
-                    <div class="project-featured-card pending" id="priorityProject">
-                      <div class="countdown-modern urgent" id="projectCountdown">
-                                <div class="countdown-icon-pulse"></div>
-                                <span class="countdown-text">Due in <span class="countdown-value" id="countdownValue">2d 14h 30m</span></span>
-                            </div>
-                        <div class="featured-tag">Upcoming Deadline</div>
-                        <div class="project-header">
-                            <h3 class="project-title">E-Commerce Dashboard</h3>
-                        </div>
-                        
-                        <div class="project-description-wrapper">
-                            <p class="project-description truncated" id="priorityDesc">Build a responsive admin dashboard with charts, tables, and user management. Implement a complex navigation system with collapsible sidebar, implement real-time data visualization with Chart.js, create CRUD operations interface for products and users, and ensure full mobile responsiveness.</p>
-                            <button class="see-more-link" id="seeMoreBtn">See more</button>
-                        </div>
-
-                        <div class="featured-footer">
-                          
-                            <button class="project-submit-btn-premium" id="submitProjectBtn">
-                                <span>Submit Project</span>
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- Pending Projects Section -->
-                    <div class="projects-section">
-                        <h4 class="projects-section-title">Pending Projects</h4>
-                        <div class="projects-grid">
-                            <div class="project-modern-item" data-project="2">
-                                <div class="project-main">
-                                    <div class="project-info-stack">
-                                        <h3 class="project-title">Blog Platform</h3>
-                                        <div class="project-description-wrapper">
-                                            <p class="project-description truncated">Full-stack blog with authentication, CRUD operations, comments system, and markdown support.</p>
-                                            <button class="see-more-link">See more</button>
-                                        </div>
-                                    </div>
-                                    <div class="project-meta-row">
-                                        <div class="project-due-inline">
-                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><path d="M16 2v4M8 2v4M3 10h18"/>
-                                            </svg>
-                                            <span>Due Jan 25</span>
-                                        </div>
-                                        <button class="submit-btn-minimal" data-project="2">Submit</button>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="project-modern-item not-started" data-project="3">
-                                <div class="project-main">
-                                    <div class="project-info-stack">
-                                        <h3 class="project-title">Social Media Clone</h3>
-                                        <div class="project-description-wrapper">
-                                            <p class="project-description truncated">Build a mini social platform with posts, likes, follows, and real-time notifications.</p>
-                                            <button class="see-more-link">See more</button>
-                                        </div>
-                                    </div>
-                                    <div class="project-meta-row">
-                                        <div class="project-due-inline urgent">
-                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><path d="M16 2v4M8 2v4M3 10h18"/>
-                                            </svg>
-                                            <span>Due Feb 10</span>
-                                        </div>
-                                        <button class="submit-btn-minimal secondary">Start</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Completed Projects Section -->
+                <!-- Mobile Completed Section (Hidden on desktop in JS or CSS) -->
+                <section class="projects-mobile-list mobile-only">
                     <div class="projects-section">
                         <h4 class="projects-section-title">Completed</h4>
                         <div class="project-modern-item completed" data-project="4">
@@ -116,6 +161,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     </div>
                 </section>
             </div>
+
 
             <!-- Modern Scrollable Submission Form Panel (Directly on page) -->
             <div class="project-submission-panel" id="projectSubmissionPanel">
@@ -176,22 +222,24 @@ document.addEventListener('DOMContentLoaded', () => {
             </div>
 
             <!-- Logbook Summary -->
-            <div class="logbook-summary-card" style="margin-bottom: 24px; background: var(--primary-gradient); color: var(--white); border-radius: var(--radius-2xl); padding: 20px; box-shadow: var(--shadow-lg);">
+            <div class="logbook-summary-card" style="margin-bottom: 24px; background: var(--primary-gradient); color: #ffffff; border-radius: var(--radius-2xl); padding: 20px; box-shadow: var(--shadow-lg);">
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
                     <span style="font-size: 13px; font-weight: 700; opacity: 0.9; text-transform: uppercase; letter-spacing: 0.5px;">Your Progress</span>
                     <span style="font-size: 14px; font-weight: 700; background: rgba(255,255,255,0.2); padding: 4px 12px; border-radius: var(--radius-full);">Week 8</span>
                 </div>
                 <div style="font-size: 20px; font-weight: 800; margin-bottom: 4px;">4 Logs Completed</div>
-                <div style="font-size: 13px; opacity: 0.8;">One more log to complete your weekly goal!</div>
+                <div style="font-size: 13px; opacity: 0.9;">One more log to complete your weekly goal!</div>
             </div>
+
 
             <!-- Daily Logs List -->
             <section class="logbook-content" id="logbookContent">
                 <!-- Current Week Section -->
                 <div class="logbook-section-header" style="display: flex; align-items: center; gap: 8px; margin-bottom: 16px;">
-                    <h3 style="font-size: 15px; font-weight: 800; color: var(--gray-800);">This Week</h3>
-                    <div style="height: 1px; flex: 1; background: var(--gray-100);"></div>
+                    <h3 style="font-size: 15px; font-weight: 800; color: var(--gray-900);">This Week</h3>
+                    <div style="height: 1px; flex: 1; background: var(--gray-200);"></div>
                 </div>
+
 
                 <div class="logs-stack" id="currentWeekLogs">
                     <!-- Day 4 (Today/Upcoming) -->
@@ -209,13 +257,14 @@ document.addEventListener('DOMContentLoaded', () => {
                         </div>
                         <div class="log-entry-content" style="display: none;">
                             <div class="log-entry-class-details">
-                                <div style="font-size: 11px; font-weight: 700; color: var(--gray-400); text-transform: uppercase; margin-bottom: 8px;">Class Details</div>
+                                <div style="font-size: 11px; font-weight: 700; color: var(--gray-500); text-transform: uppercase; margin-bottom: 8px;">Class Details</div>
                                 <div style="font-weight: 700; font-size: 14px; color: var(--gray-800);">Advanced UI Interactivity</div>
-                                <div style="font-size: 12px; color: var(--gray-500);">Tutor: Sarah Johnson • 14:00 - 15:30</div>
+                                <div style="font-size: 12px; color: var(--gray-600);">Tutor: Sarah Johnson • 14:00 - 15:30</div>
                             </div>
                             <div class="log-entry-full">
-                                <div style="font-size: 11px; font-weight: 700; color: var(--gray-400); text-transform: uppercase; margin-bottom: 8px;">Your Learning Log</div>
-                                <p style="font-size: 14px; color: var(--gray-700); line-height: 1.6;">Build a responsive admin dashboard with charts, tables, and user management. Use Chart.js for data visualization. Managed to implement the sidebar and main content areas.</p>
+                                <div style="font-size: 11px; font-weight: 700; color: var(--gray-500); text-transform: uppercase; margin-bottom: 8px;">Your Learning Log</div>
+                                <p style="font-size: 14px; color: var(--gray-800); line-height: 1.6;">Build a responsive admin dashboard with charts, tables, and user management. Use Chart.js for data visualization. Managed to implement the sidebar and main content areas.</p>
+
                                 <div style="display: flex; gap: 8px; margin-top: 12px;">
                                     <button class="project-action-btn secondary mini" style="padding: 6px 12px; font-size: 11px;">Edit Log</button>
                                     <button class="project-action-btn mini share-btn" style="padding: 6px 12px; font-size: 11px;">Share Card</button>
@@ -245,9 +294,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 <!-- Past Weeks Section -->
                 <div class="logbook-section-header" style="display: flex; align-items: center; gap: 8px; margin-top: 32px; margin-bottom: 16px;">
-                    <h3 style="font-size: 15px; font-weight: 800; color: var(--gray-800);">Past Weeks</h3>
-                    <div style="height: 1px; flex: 1; background: var(--gray-100);"></div>
+                    <h3 style="font-size: 15px; font-weight: 800; color: var(--gray-900);">Past Weeks</h3>
+                    <div style="height: 1px; flex: 1; background: var(--gray-200);"></div>
                 </div>
+
 
                 <div class="past-weeks-stack">
                     <div class="week-collapse-card" data-week="7">
@@ -270,34 +320,41 @@ document.addEventListener('DOMContentLoaded', () => {
             </section>
 
             <!-- Floating Action Button -->
-            <button class="fab-btn" id="addLogBtn" style="position: fixed; bottom: 100px; right: 24px; width: 56px; height: 56px; border-radius: 50%; background: var(--primary-gradient); color: var(--white); border: none; box-shadow: var(--shadow-xl); display: flex; align-items: center; justify-content: center; z-index: 100; cursor: pointer;">
+            <button class="fab-btn" id="addLogBtn" style="position: fixed; bottom: 100px; right: 24px; width: 56px; height: 56px; border-radius: 50%; background: var(--primary-gradient); color: #ffffff; border: none; box-shadow: var(--shadow-xl); display: flex; align-items: center; justify-content: center; z-index: 100; cursor: pointer;">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="width: 24px; height: 24px;">
                     <line x1="12" y1="5" x2="12" y2="19" />
                     <line x1="5" y1="12" x2="19" y2="12" />
                 </svg>
             </button>
 
-            <!-- New Log Entry Modal -->
-            <div class="modal-overlay" id="logEntryModal">
-                <div class="modal" style="max-height: 95vh;">
-                    <div class="modal-header">
-                        <h2 class="modal-title">New Log Entry</h2>
-                        <button class="modal-close" id="closeLogModal">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <line x1="18" y1="6" x2="6" y2="18"/>
-                                <line x1="6" y1="6" x2="18" y2="18"/>
-                            </svg>
-                        </button>
+
+            <!-- Redesigned Log Entry Panel (Matches Project Submission Style) -->
+            <div class="project-submission-panel" id="logSubmissionPanel">
+                <div class="panel-header">
+                    <button class="panel-back-btn" id="closeLogPanel">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M15 18l-6-6 6-6" />
+                        </svg>
+                    </button>
+                    <h2 class="panel-title">Add Daily Log</h2>
+                </div>
+                
+                <div class="panel-scroll-content">
+                    <div class="project-context-card">
+                        <span class="context-label">Current Progress</span>
+                        <h3 class="context-title">Week 8 • Day 4</h3>
+                        <div class="context-desc">Use this form to log your daily learning activities and progress.</div>
                     </div>
-                    <div class="log-entry-form" style="padding: 24px;">
-                        <div class="form-row" style="margin-bottom: 16px;">
-                            <div class="form-group">
-                                <label class="form-label">Week</label>
-                                <input type="number" class="form-input" id="logWeek" value="8" min="1" max="12">
+
+                    <form class="modern-submission-form" id="logEntryForm">
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 24px;">
+                            <div class="form-section" style="margin-bottom: 0;">
+                                <label class="modern-label">Week Number</label>
+                                <input type="number" class="modern-input" id="logWeek" value="8" min="1" max="12" style="padding-left: 16px;">
                             </div>
-                            <div class="form-group">
-                                <label class="form-label">Day</label>
-                                <select class="form-input" id="logDay">
+                            <div class="form-section" style="margin-bottom: 0;">
+                                <label class="modern-label">Class Day</label>
+                                <select class="modern-input" id="logDay" style="padding-left: 16px; appearance: auto;">
                                     <option value="1">Day 1</option>
                                     <option value="2">Day 2</option>
                                     <option value="3">Day 3</option>
@@ -306,48 +363,48 @@ document.addEventListener('DOMContentLoaded', () => {
                                 </select>
                             </div>
                         </div>
-                        <div class="form-group" style="margin-bottom: 20px;">
-                            <label class="form-label">Today's Topic</label>
-                            <input type="text" class="form-input" id="logTopic" placeholder="e.g., Responsive Design">
+
+                        <div class="form-section">
+                            <label class="modern-label">Topic</label>
+                            <input type="text" class="modern-input" id="logTopic" placeholder="e.g. Advanced UI Interactivity" style="padding-left: 16px;">
                         </div>
-                        <div class="form-group" style="margin-bottom: 20px;">
-                            <label class="form-label">Tutor</label>
-                            <input type="text" class="form-input" id="logTutor" placeholder="e.g., Sarah Johnson">
+
+                        <div class="form-section">
+                            <label class="modern-label">Tutor</label>
+                            <input type="text" class="modern-input" id="logTutor" placeholder="e.g. Sarah Johnson" style="padding-left: 16px;">
                         </div>
-                        <div class="form-group" style="margin-bottom: 24px;">
-                            <label class="form-label">What did you learn? (50 words max)</label>
-                            <textarea class="form-textarea" id="logContent" placeholder="Briefly describe your learnings today..." rows="4" maxlength="400"></textarea>
-                            <div class="char-count"><span id="logWordCount">0</span>/50 words</div>
+
+                        <div class="form-section">
+                            <label class="modern-label">Learning Log</label>
+                            <p class="label-hint">What did you learn today? (50 words max)</p>
+                            <textarea class="modern-textarea" id="logContent" placeholder="Describe your key takeaways..." rows="5"></textarea>
+                            <div class="modern-word-count"><span id="logWordCount">0</span> / 50 words</div>
                         </div>
-                        <button class="submit-btn" id="saveLogBtn">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 18px; height: 18px; margin-right: 8px;">
-                                <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/>
-                                <polyline points="17 21 17 13 7 13 7 21"/>
-                                <polyline points="7 3 7 8 15 8"/>
-                            </svg>
-                            Save & Generate Card
+
+                        <div class="form-actions" style="margin-top: 24px;">
+                            <button type="button" class="btn-premium-full" id="saveLogBtn">
+                                <span>Save & Generate Card</span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Share Card Modal (Kept for displaying the generated card) -->
+            <div class="modal-overlay" id="shareCardModal">
+                <div class="modal" style="background: transparent; box-shadow: none; padding: 0; max-width: 360px;">
+                    <div id="shareableCardContainer"></div>
+                    <div style="display: flex; gap: 12px; margin-top: 24px; padding: 0 20px;">
+                        <button class="btn-premium-full" id="downloadCardBtn">
+                            <span>Save to Photos</span>
+                        </button>
+                        <button class="btn-premium-full" id="closeShareModal" style="background: rgba(255,255,255,0.2); backdrop-filter: blur(10px);">
+                            <span>Done</span>
                         </button>
                     </div>
                 </div>
             </div>
 
-            <!-- Shareable Card Modal -->
-            <div class="modal-overlay" id="shareCardModal">
-                <div class="modal" style="background: transparent; box-shadow: none; max-width: 400px;">
-                    <div id="shareableCardContainer"></div>
-                    <div style="display: flex; gap: 12px; margin-top: 24px;">
-                        <button class="project-submit-cta" style="flex: 1;" id="downloadCardBtn">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 18px; height: 18px; margin-right: 8px;">
-                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v4" />
-                                <polyline points="7 10 12 15 17 10" />
-                                <line x1="12" y1="15" x2="12" y2="3" />
-                            </svg>
-                            Save Image
-                        </button>
-                        <button class="project-action-btn secondary" id="closeShareModal" style="background: var(--white);">Close</button>
-                    </div>
-                </div>
-            </div>
         `;
         initLogbook();
     }
@@ -562,12 +619,20 @@ function initProjectPage() {
     const projectsViewContainer = document.getElementById('projectsViewContainer');
 
     // Filter Tabs
-    filterTabs.forEach(tab => {
+    const allFilterTabs = document.querySelectorAll('.filter-tab');
+    allFilterTabs.forEach(tab => {
         tab.addEventListener('click', () => {
-            filterTabs.forEach(t => t.classList.remove('active'));
-            tab.classList.add('active');
-
             const filter = tab.dataset.filter;
+
+            // Sync all tabs with the same filter
+            allFilterTabs.forEach(t => {
+                if (t.dataset.filter === filter) {
+                    t.classList.add('active');
+                } else {
+                    t.classList.remove('active');
+                }
+            });
+
             const projectSections = document.querySelectorAll('.projects-section');
             const featuredCard = document.getElementById('priorityProject');
 
@@ -601,13 +666,33 @@ function initProjectPage() {
                 }
             });
 
-            // Hide empty sections
+            // Hide empty sections (but ignore side-panel-card if it contains tabs)
             projectSections.forEach(section => {
+                if (section.classList.contains('side-panel-card')) return;
                 const visibleItems = Array.from(section.querySelectorAll('.project-modern-item')).filter(i => i.style.display !== 'none');
-                section.style.display = visibleItems.length > 0 ? 'block' : 'none';
+
+                // Remove existing empty state if any
+                const existingEmpty = section.querySelector('.empty-state-msg');
+                if (existingEmpty) existingEmpty.remove();
+
+                if (visibleItems.length === 0) {
+                    const title = section.querySelector('.projects-section-title')?.textContent || '';
+                    const msg = title.includes('Pending') ? 'No pending projects' : 'No completed projects';
+
+                    const emptyMsg = document.createElement('div');
+                    emptyMsg.className = 'empty-state-msg';
+                    emptyMsg.style.cssText = 'padding: 24px; text-align: center; color: var(--gray-400); font-size: 14px; background: var(--gray-50); border-radius: var(--radius-lg); border: 1px dashed var(--gray-200); margin-top: 8px;';
+                    emptyMsg.textContent = msg;
+                    section.appendChild(emptyMsg);
+                    section.style.display = 'block'; // Keep section visible to show the message
+                } else {
+                    section.style.display = 'block';
+                }
             });
+
         });
     });
+
 
     // See More/Less Logic
     const seeMoreLinks = document.querySelectorAll('.see-more-link');
@@ -749,7 +834,12 @@ function initProjectPage() {
     }
     updateCountdown();
     setInterval(updateCountdown, 60000);
+
+    // Initial filter trigger to set empty states
+    const activeTab = document.querySelector('.filter-tab.active');
+    if (activeTab) activeTab.click();
 }
+
 
 // Initialize Logbook Page
 function initLogbook() {
@@ -788,25 +878,28 @@ function initLogbook() {
 
     // New Log Entry Flow
     const addLogBtn = document.getElementById('addLogBtn');
-    const logEntryModal = document.getElementById('logEntryModal');
-    const closeLogModal = document.getElementById('closeLogModal');
+    const logSubmissionPanel = document.getElementById('logSubmissionPanel');
+    const closeLogPanel = document.getElementById('closeLogPanel');
     const saveLogBtn = document.getElementById('saveLogBtn');
     const logContent = document.getElementById('logContent');
     const logWordCount = document.getElementById('logWordCount');
 
-    if (addLogBtn) {
+    if (addLogBtn && logSubmissionPanel) {
         addLogBtn.addEventListener('click', () => {
-            logEntryModal.classList.add('active');
+            logSubmissionPanel.classList.add('active');
             document.body.style.overflow = 'hidden';
+            if (typeof window.blurMainContainer === 'function') window.blurMainContainer(true);
         });
     }
 
-    if (closeLogModal) {
-        closeLogModal.addEventListener('click', () => {
-            logEntryModal.classList.remove('active');
+    if (closeLogPanel) {
+        closeLogPanel.addEventListener('click', () => {
+            logSubmissionPanel.classList.remove('active');
             document.body.style.overflow = '';
+            if (typeof window.blurMainContainer === 'function') window.blurMainContainer(false);
         });
     }
+
 
     if (logContent && logWordCount) {
         logContent.addEventListener('input', () => {
@@ -844,19 +937,16 @@ function initLogbook() {
             saveLogBtn.innerHTML = 'Saving...';
 
             setTimeout(() => {
-                logEntryModal.classList.remove('active');
+                logSubmissionPanel.classList.remove('active');
+                document.body.style.overflow = '';
+                if (typeof window.blurMainContainer === 'function') window.blurMainContainer(false);
+
                 generateShareableCard({
                     week, day, topic, tutor, content
                 });
+
                 saveLogBtn.disabled = false;
-                saveLogBtn.innerHTML = `
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 18px; height: 18px; margin-right: 8px;">
-                        <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/>
-                        <polyline points="17 21 17 13 7 13 7 21"/>
-                        <polyline points="7 3 7 8 15 8"/>
-                    </svg>
-                    Save & Generate Card
-                `;
+                saveLogBtn.innerHTML = '<span>Save & Generate Card</span>';
                 showToast('Log saved! Here is your shareable card.');
 
                 // Reset form
@@ -865,6 +955,7 @@ function initLogbook() {
                 document.getElementById('logTopic').value = '';
                 document.getElementById('logTutor').value = '';
             }, 1000);
+
         });
     }
 
@@ -887,22 +978,38 @@ function initLogbook() {
         if (!container || !modal) return;
 
         container.innerHTML = `
-            <div class="shareable-log-card">
-                <div class="shareable-header">
-                    <div class="shareable-avatar">JD</div>
-                    <div class="shareable-student-info">
-                        <span class="shareable-student-name">John Doe</span>
-                        <span class="shareable-student-id">Student ID: 2024-882</span>
+            <div class="shareable-log-card status-story-optimized">
+                <div class="story-branding">
+                    <img src="logo/logo.svg" alt="StudentIT" class="story-logo">
+                    <span class="story-app-name">StudentIT</span>
+                </div>
+
+                <div class="story-middle">
+                    <div class="story-meta">
+                        <span class="story-date">${new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</span>
+                        <h2 class="story-topic">${data.topic}</h2>
+                    </div>
+
+                    <div class="story-log-text">
+                        <svg class="quote-icon" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M14.017 21L14.017 18C14.017 16.8954 14.9124 16 16.017 16H19.017C19.5693 16 20.017 15.5523 20.017 15V9C20.017 8.44772 19.5693 8 19.017 8H16.017C14.9124 8 14.017 7.10457 14.017 6V3H20.017C21.1216 3 22.017 3.89543 22.017 5V19C22.017 20.1046 21.1216 21 20.017 21H14.017ZM2.01697 21L2.01697 18C2.01697 16.8954 2.9124 16 4.01697 16H7.01697C7.56925 16 8.01697 15.5523 8.01697 15V9C8.01697 8.44772 7.56925 8 7.01697 8H4.01697C2.9124 8 2.01697 7.10457 2.01697 6V3H8.01697C9.12154 3 10.017 3.89543 10.017 5V19C10.017 20.1046 9.12154 21 8.01697 21H2.01697Z"/>
+                        </svg>
+                        <p>${data.content}</p>
                     </div>
                 </div>
-                <div class="shareable-content">
-                    <span class="shareable-week-day">WEEK ${data.week} • DAY ${data.day}</span>
-                    <div style="font-weight: 800; font-size: 18px; margin-bottom: 8px; color: var(--gray-900);">${data.topic}</div>
-                    <p class="shareable-log-text" style="color: var(--gray-700); font-size: 14px; line-height: 1.6;">${data.content}</p>
-                </div>
-                <div class="shareable-footer" style="display: flex; justify-content: space-between; border-top: 1px solid var(--gray-100); padding-top: 16px; margin-top: 16px;">
-                    <span style="font-size: 12px; font-weight: 600; color: var(--gray-400);">${new Date().toLocaleDateString()}</span>
-                    <span style="font-size: 12px; font-weight: 800; color: var(--primary);">StudentIT</span>
+
+                <div class="story-footer">
+                    <div class="story-student">
+                        <div class="story-avatar">JD</div>
+                        <div class="story-student-details">
+                            <span class="story-name">John Doe</span>
+                            <span class="story-week">Week ${data.week} • Day ${data.day}</span>
+                        </div>
+                    </div>
+                    <div class="story-qr-placeholder">
+                        <div class="qr-label">TRACKING</div>
+                        <div class="qr-value">PROGRESS</div>
+                    </div>
                 </div>
             </div>
         `;
@@ -930,6 +1037,7 @@ function initLogbook() {
             };
         }
     }
+
 }
 
 // Initialize Payments

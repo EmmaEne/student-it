@@ -62,8 +62,8 @@ let durationInterval = null;
 
 // Navigation logic
 const globalBackContainer = document.getElementById('globalBackContainer');
-const globalBackBtn = document.getElementById('globalBackBtn');
 const headerUserInfo = document.getElementById('headerUserInfo');
+
 
 navItems.forEach(item => {
     item.addEventListener('click', (e) => {
@@ -78,7 +78,14 @@ navItems.forEach(item => {
     });
 });
 
-window.navigateToPage = function (pageId) {
+function navigateToPage(pageId) {
+    const navItems = document.querySelectorAll('.nav-item');
+    const pages = document.querySelectorAll('.page');
+    const headerBackBtn = document.getElementById('headerBackBtn');
+    const headerUserInfo = document.getElementById('headerUserInfo');
+    const globalBackContainer = document.getElementById('globalBackContainer');
+    const greetingEl = document.querySelector('.greeting');
+
     // Update nav items
     navItems.forEach(nav => {
         nav.classList.remove('active');
@@ -94,12 +101,16 @@ window.navigateToPage = function (pageId) {
     });
 
     // Header visibility logic
+    if (globalBackContainer) globalBackContainer.style.display = 'none';
+    if (headerUserInfo) headerUserInfo.style.display = 'flex';
+
     if (pageId === 'dashboard') {
-        if (globalBackContainer) globalBackContainer.style.display = 'none';
-        if (headerUserInfo) headerUserInfo.style.display = 'flex';
+        if (headerBackBtn) headerBackBtn.style.display = 'none';
+        if (greetingEl) greetingEl.style.display = 'block';
     } else {
-        if (globalBackContainer) globalBackContainer.style.display = 'flex';
-        if (headerUserInfo) headerUserInfo.style.display = 'none';
+        if (headerBackBtn) headerBackBtn.style.display = 'inline-flex';
+        // Keep profile info visible as requested
+        if (greetingEl) greetingEl.style.display = 'block';
     }
 
     // Scroll to top
@@ -111,12 +122,17 @@ window.navigateToPage = function (pageId) {
     }
 };
 
-// Global Back Button
-if (globalBackBtn) {
-    globalBackBtn.addEventListener('click', () => {
-        navigateToPage('dashboard');
-    });
-}
+// New Header Back Button
+document.addEventListener('DOMContentLoaded', () => {
+    const headerBackBtn = document.getElementById('headerBackBtn');
+    if (headerBackBtn) {
+        headerBackBtn.addEventListener('click', () => {
+            navigateToPage('dashboard');
+        });
+    }
+});
+
+
 
 // Attendance Collapsible Weeks
 document.addEventListener('click', (e) => {
@@ -488,21 +504,7 @@ document.head.appendChild(style);
 // Learning-Focused Home Page Interactions
 // ========================================
 
-// Helper: Navigate to a page
-function navigateToPage(pageId) {
-    navItems.forEach(nav => nav.classList.remove('active'));
-    const targetNav = document.querySelector(`[data-page="${pageId}"]`);
-    if (targetNav) targetNav.classList.add('active');
 
-    pages.forEach(page => page.classList.remove('active'));
-    const pageEl = document.getElementById(pageId);
-    if (pageEl) pageEl.classList.add('active');
-
-    // Haptic feedback
-    if (navigator.vibrate) {
-        navigator.vibrate(10);
-    }
-}
 
 // Log Attendance Button in Class Panel
 const lecturerCard = document.getElementById('lecturerCard');

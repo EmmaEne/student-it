@@ -1130,28 +1130,4 @@ function navigateToSubpage(pageId) {
     window.scrollTo(0, 0);
 }
 
-// Navigate to Main Page
-function navigateToPage(pageId) {
-    const pages = document.querySelectorAll('.page');
-    const navItems = document.querySelectorAll('.nav-item');
 
-    // Hide all pages
-    pages.forEach(page => page.classList.remove('active'));
-
-    // Show target page
-    const targetPage = document.getElementById(pageId);
-    if (targetPage) {
-        targetPage.classList.add('active');
-    }
-
-    // Update nav
-    navItems.forEach(nav => {
-        nav.classList.remove('active');
-        if (nav.dataset.page === pageId) {
-            nav.classList.add('active');
-        }
-    });
-
-    // Scroll to top
-    window.scrollTo(0, 0);
-}
