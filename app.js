@@ -50,8 +50,8 @@ const homeUpnextItems = document.querySelectorAll('.home-upnext-item');
 const homeUpnextAll = document.querySelector('.home-upnext-all');
 
 // New Home Attendance Elements
-const homeLogAttendanceBtn = document.getElementById('homeLogAttendanceBtn');
-const homeAttendanceStatusText = document.getElementById('homeAttendanceStatusText');
+const logbookCtaBtn = document.getElementById('logbookCtaBtn');
+const logbookStatusText = document.getElementById('logbookStatusText');
 const homeAttendanceSection = document.getElementById('homeAttendanceSection');
 const notificationBtn = document.getElementById('notificationBtn');
 
@@ -60,36 +60,89 @@ let isCheckedIn = false;
 let checkInTime = null;
 let durationInterval = null;
 
-// Navigation
+// Navigation logic
+const globalBackContainer = document.getElementById('globalBackContainer');
+const globalBackBtn = document.getElementById('globalBackBtn');
+const headerUserInfo = document.getElementById('headerUserInfo');
+
 navItems.forEach(item => {
     item.addEventListener('click', (e) => {
-        // e.preventDefault(); // Removed to allow natural event bubbling if needed, though we handle target below
-
         let target = e.target;
-        // Closest nav-item check to ensure we get the container even if pointer-events: none was somehow bypassed
         const navItem = target.closest('.nav-item');
         if (!navItem) return;
 
         const targetPage = navItem.dataset.page;
         if (!targetPage) return;
 
-        // Update nav items
-        navItems.forEach(nav => nav.classList.remove('active'));
-        navItem.classList.add('active');
+        navigateToPage(targetPage);
+    });
+});
 
-        // Update pages
-        pages.forEach(page => {
-            page.classList.remove('active');
-            if (page.id === targetPage) {
-                page.classList.add('active');
-            }
-        });
+window.navigateToPage = function (pageId) {
+    // Update nav items
+    navItems.forEach(nav => {
+        nav.classList.remove('active');
+        if (nav.dataset.page === pageId) nav.classList.add('active');
+    });
 
-        // Haptic feedback simulation
-        if (navigator.vibrate) {
-            navigator.vibrate(10);
+    // Update pages
+    pages.forEach(page => {
+        page.classList.remove('active');
+        if (page.id === pageId) {
+            page.classList.add('active');
         }
     });
+
+    // Header visibility logic
+    if (pageId === 'dashboard') {
+        if (globalBackContainer) globalBackContainer.style.display = 'none';
+        if (headerUserInfo) headerUserInfo.style.display = 'flex';
+    } else {
+        if (globalBackContainer) globalBackContainer.style.display = 'flex';
+        if (headerUserInfo) headerUserInfo.style.display = 'none';
+    }
+
+    // Scroll to top
+    window.scrollTo(0, 0);
+
+    // Haptic feedback simulation
+    if (navigator.vibrate) {
+        navigator.vibrate(10);
+    }
+};
+
+// Global Back Button
+if (globalBackBtn) {
+    globalBackBtn.addEventListener('click', () => {
+        navigateToPage('dashboard');
+    });
+}
+
+// Attendance Collapsible Weeks
+document.addEventListener('click', (e) => {
+    const weekHeader = e.target.closest('.week-collapse-header');
+    if (weekHeader) {
+        const card = weekHeader.closest('.week-collapse-card');
+        if (card) {
+            const isExpanded = card.classList.contains('expanded');
+            // Close others if needed, though usually stacked cards allow multiple or single
+            // For this design, let's allow single expand for clarity
+            document.querySelectorAll('.week-collapse-card').forEach(c => c.classList.remove('expanded'));
+
+            if (!isExpanded) {
+                card.classList.add('expanded');
+            }
+        }
+    }
+});
+
+// Lecture Mini-Cards Click
+document.addEventListener('click', (e) => {
+    const lectureCard = e.target.closest('.lecture-mini-card');
+    if (lectureCard) {
+        const title = lectureCard.querySelector('.lecture-name').textContent;
+        showToast(`Opening lecture: ${title}`);
+    }
 });
 
 // More Menu removed - now using full-page More section
@@ -119,39 +172,92 @@ function updateClassStatus(h, m) {
     const currentTimeMinutes = h * 60 + m;
     const startTimeMinutes = 14 * 60; // 14:00
     const endTimeMinutes = 15 * 60 + 30; // 15:30
+    const warningMinutes = 15; // 15 minutes before class
 
     const isOngoing = currentTimeMinutes >= startTimeMinutes && currentTimeMinutes <= endTimeMinutes;
+    const isCompleted = currentTimeMinutes > endTimeMinutes;
+    const isUpcoming = currentTimeMinutes >= (startTimeMinutes - warningMinutes) && currentTimeMinutes < startTimeMinutes;
 
-    if (statusBanner) {
-        const bannerText = statusBanner.querySelector('.banner-text');
+    // Update Live Status Banner
+    const liveIndicator = document.getElementById('liveStatusIndicator');
+    const bannerStatusText = document.getElementById('bannerStatusText');
+    const pulseDot = liveIndicator ? liveIndicator.querySelector('.pulse-dot') : null;
+    const liveLabel = liveIndicator ? liveIndicator.querySelector('.live-label') : null;
+
+    if (statusBanner && liveIndicator && bannerStatusText && pulseDot) {
         if (isOngoing) {
             statusBanner.className = 'status-banner ongoing';
-            if (bannerText) bannerText.textContent = 'Class is currently ongoing';
+            pulseDot.className = 'pulse-dot ongoing';
+            if (liveLabel) {
+                liveLabel.textContent = 'LIVE';
+                liveLabel.style.display = 'inline';
+                liveLabel.style.color = 'var(--danger)';
+                liveLabel.style.background = 'rgba(239, 68, 68, 0.1)';
+            }
+            bannerStatusText.textContent = 'Class is ongoing';
+        } else if (isCompleted) {
+            statusBanner.className = 'status-banner completed';
+            pulseDot.className = 'pulse-dot completed';
+            if (liveLabel) {
+                liveLabel.textContent = '';
+                liveLabel.style.display = 'none';
+            }
+            bannerStatusText.textContent = 'Just completed';
+        } else if (isUpcoming) {
+            statusBanner.className = 'status-banner upcoming';
+            pulseDot.className = 'pulse-dot upcoming';
+            if (liveLabel) {
+                liveLabel.textContent = 'SOON';
+                liveLabel.style.display = 'inline';
+                liveLabel.style.color = 'var(--warning)';
+                liveLabel.style.background = 'rgba(245, 158, 11, 0.1)';
+            }
+            bannerStatusText.textContent = 'About to start';
         } else {
             statusBanner.className = 'status-banner no-class';
-            if (bannerText) bannerText.textContent = 'No class at the moment';
+            pulseDot.className = 'pulse-dot';
+            pulseDot.style.background = 'var(--gray-400)';
+            pulseDot.style.animation = 'none';
+            if (liveLabel) {
+                liveLabel.style.display = 'none';
+            }
+            bannerStatusText.textContent = 'No class at the moment';
         }
     }
 
-    // Update Dashboard Class Card
-    const classBadge = document.querySelector('.class-badge');
-    const classTimeValue = document.querySelector('.meta-value:nth-child(2)'); // Time meta value
+    // Update Dashboard Class Card Status
+    const classStatusLive = document.getElementById('classStatusLive');
+    if (classStatusLive) {
+        const cardPulseDot = classStatusLive.querySelector('.pulse-dot');
+        const statusText = classStatusLive.querySelector('.status-text');
 
-    if (classBadge) {
         if (isOngoing) {
-            classBadge.className = 'class-badge ongoing';
-            classBadge.textContent = 'Ongoing';
-        } else if (currentTimeMinutes > endTimeMinutes) {
-            classBadge.className = 'class-badge completed';
-            classBadge.textContent = 'Completed';
-            // Update time label if completed
+            classStatusLive.className = 'class-status-live';
+            if (cardPulseDot) cardPulseDot.className = 'pulse-dot ongoing';
+            if (statusText) statusText.textContent = 'Class is ongoing';
+        } else if (isCompleted) {
+            classStatusLive.className = 'class-status-live completed';
+            if (cardPulseDot) cardPulseDot.className = 'pulse-dot completed';
+            if (statusText) statusText.textContent = 'Just completed';
+        } else if (isUpcoming) {
+            classStatusLive.className = 'class-status-live upcoming';
+            if (cardPulseDot) cardPulseDot.className = 'pulse-dot upcoming';
+            if (statusText) statusText.textContent = 'About to start';
+        } else {
+            classStatusLive.className = 'class-status-live';
+            if (cardPulseDot) {
+                cardPulseDot.className = 'pulse-dot';
+                cardPulseDot.style.background = 'var(--gray-400)';
+            }
+            if (statusText) statusText.textContent = 'No class scheduled';
+        }
+
+        // Update time meta if completed
+        if (isCompleted) {
             const timeMetaLabel = document.querySelectorAll('.meta-label')[1];
             if (timeMetaLabel) timeMetaLabel.textContent = 'Ended At';
             const timeMetaValue = document.querySelectorAll('.meta-value')[1];
             if (timeMetaValue) timeMetaValue.textContent = '15:30';
-        } else {
-            classBadge.className = 'class-badge up-next';
-            classBadge.textContent = 'Up Next';
         }
     }
 
@@ -163,13 +269,13 @@ function updateAttendanceIndicator() {
         if (isCheckedIn) {
             classAttendanceStatus.style.display = 'flex';
             panelLogAttendanceBtn.style.display = 'none';
-            if (homeAttendanceStatusText) homeAttendanceStatusText.textContent = 'Attendance Logged';
-            if (homeLogAttendanceBtn) homeLogAttendanceBtn.style.display = 'none';
+            if (logbookStatusText) logbookStatusText.textContent = 'Attendance Logged';
+            if (logbookCtaBtn) logbookCtaBtn.style.display = 'none';
         } else {
             classAttendanceStatus.style.display = 'none';
             panelLogAttendanceBtn.style.display = 'block';
-            if (homeAttendanceStatusText) homeAttendanceStatusText.textContent = 'You haven\'t logged today';
-            if (homeLogAttendanceBtn) homeLogAttendanceBtn.style.display = 'block';
+            if (logbookStatusText) logbookStatusText.textContent = 'You haven\'t logged today';
+            if (logbookCtaBtn) logbookCtaBtn.style.display = 'flex';
         }
     }
 }
@@ -399,6 +505,13 @@ function navigateToPage(pageId) {
 }
 
 // Log Attendance Button in Class Panel
+const lecturerCard = document.getElementById('lecturerCard');
+if (lecturerCard) {
+    lecturerCard.addEventListener('click', () => {
+        navigateToPage('dashboard');
+    });
+}
+
 if (panelLogAttendanceBtn) {
     panelLogAttendanceBtn.addEventListener('click', () => {
         // Just navigate to attendance page, let student click check-in manually
@@ -439,9 +552,9 @@ if (homeUpnextAll) {
     });
 }
 
-// Home Log Attendance Button
-if (homeLogAttendanceBtn) {
-    homeLogAttendanceBtn.addEventListener('click', () => {
+// Home Logbook CTA Button
+if (logbookCtaBtn) {
+    logbookCtaBtn.addEventListener('click', () => {
         navigateToPage('logbook');
     });
 }

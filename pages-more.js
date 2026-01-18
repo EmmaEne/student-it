@@ -218,11 +218,6 @@ document.addEventListener('DOMContentLoaded', () => {
         schedulePage.innerHTML = `
             <div class="subpage-content">
                 <div class="subpage-header">
-                    <button class="back-btn" data-back="more">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <polyline points="15,18 9,12 15,6"/>
-                        </svg>
-                    </button>
                     <h1 class="subpage-title">Class Schedule</h1>
                 </div>
 
@@ -331,11 +326,6 @@ document.addEventListener('DOMContentLoaded', () => {
         learningResourcesPage.innerHTML = `
             <div class="subpage-content">
                 <div class="subpage-header">
-                    <button class="back-btn" data-back="more">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <polyline points="15,18 9,12 15,6"/>
-                        </svg>
-                    </button>
                     <h1 class="subpage-title">Learning Resources</h1>
                 </div>
 
@@ -477,11 +467,6 @@ document.addEventListener('DOMContentLoaded', () => {
         progressPage.innerHTML = `
             <div class="subpage-content">
                 <div class="subpage-header">
-                    <button class="back-btn" data-back="more">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <polyline points="15,18 9,12 15,6"/>
-                        </svg>
-                    </button>
                     <h1 class="subpage-title">Progress Overview</h1>
                 </div>
 
@@ -578,11 +563,6 @@ document.addEventListener('DOMContentLoaded', () => {
         announcementsPage.innerHTML = `
             <div class="subpage-content">
                 <div class="subpage-header">
-                    <button class="back-btn" data-back="more">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <polyline points="15,18 9,12 15,6"/>
-                        </svg>
-                    </button>
                     <h1 class="subpage-title">Announcements</h1>
                 </div>
 
@@ -629,11 +609,6 @@ document.addEventListener('DOMContentLoaded', () => {
         supervisorPage.innerHTML = `
             <div class="subpage-content">
                 <div class="subpage-header">
-                    <button class="back-btn" data-back="more">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <polyline points="15,18 9,12 15,6"/>
-                        </svg>
-                    </button>
                     <h1 class="subpage-title">Supervisor</h1>
                 </div>
 
@@ -690,11 +665,6 @@ document.addEventListener('DOMContentLoaded', () => {
         profilePage.innerHTML = `
             <div class="subpage-content">
                 <div class="subpage-header">
-                    <button class="back-btn" data-back="more">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <polyline points="15,18 9,12 15,6"/>
-                        </svg>
-                    </button>
                     <h1 class="subpage-title">Profile</h1>
                 </div>
 
@@ -763,11 +733,6 @@ document.addEventListener('DOMContentLoaded', () => {
         settingsPage.innerHTML = `
             <div class="subpage-content">
                 <div class="subpage-header">
-                    <button class="back-btn" data-back="more">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <polyline points="15,18 9,12 15,6"/>
-                        </svg>
-                    </button>
                     <h1 class="subpage-title">Settings</h1>
                 </div>
 
@@ -837,11 +802,6 @@ document.addEventListener('DOMContentLoaded', () => {
         helpPage.innerHTML = `
             <div class="subpage-content">
                 <div class="subpage-header">
-                    <button class="back-btn" data-back="more">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <polyline points="15,18 9,12 15,6"/>
-                        </svg>
-                    </button>
                     <h1 class="subpage-title">Help & Support</h1>
                 </div>
 
@@ -928,11 +888,6 @@ document.addEventListener('DOMContentLoaded', () => {
         aboutPage.innerHTML = `
             <div class="subpage-content">
                 <div class="subpage-header">
-                    <button class="back-btn" data-back="more">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <polyline points="15,18 9,12 15,6"/>
-                        </svg>
-                    </button>
                     <h1 class="subpage-title">About</h1>
                 </div>
 

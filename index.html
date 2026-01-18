@@ -88,7 +88,17 @@
 
         <!-- Header -->
         <header class="header">
-            <div class="header-left">
+            <!-- Global Back Button -->
+            <div class="global-header-left" id="globalBackContainer" style="display: none;">
+                <button class="back-btn" id="globalBackBtn">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M15 18l-6-6 6-6" />
+                    </svg>
+                </button>
+            </div>
+
+            <div class="header-left" id="headerUserInfo">
                 <div class="avatar"><span>JD</span></div>
                 <div class="greeting">
                     <span class="greeting-text">Good afternoon</span>
@@ -105,10 +115,13 @@
             </button>
         </header>
 
-        <!-- Status Banner -->
+        <!-- Live Status Banner -->
         <div class="status-banner ongoing" style="margin-bottom: 20px;" id="statusBanner">
-            <div class="banner-dot"></div>
-            <span class="banner-text">Class is currently ongoing</span>
+            <div class="live-status-indicator" id="liveStatusIndicator">
+                <span class="pulse-dot ongoing"></span>
+                <span class="live-label">LIVE</span>
+            </div>
+            <span class="banner-text" id="bannerStatusText">Class is ongoing</span>
         </div>
 
         <!-- Dashboard Page - Ultra Minimal Learning-Focused -->
@@ -117,7 +130,7 @@
             <section class="class-panel">
                 <div class="class-card">
                     <div class="class-header">
-                        <div class="class-badge ongoing">Ongoing</div>
+
                         <div class="attendance-status-indicator logged" id="classAttendanceStatus">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
                                 <polyline points="20,6 9,17 4,12" />
@@ -135,37 +148,60 @@
                             <li class="class-subtopic">Media Queries</li>
                         </ul>
                     </div>
-
-                    <div class="class-meta-grid">
-                        <div class="class-meta-item">
-                            <span class="meta-label">Lecturer</span>
-                            <span class="meta-value">Sarah Johnson</span>
+                    <div class="class-lecturer-card" id="lecturerCard">
+                        <div class="lecturer-avatar">
+                            <img src="https://ui-avatars.com/api/?name=Sarah+Johnson&background=2a38a8&color=fff"
+                                alt="Sarah Johnson">
                         </div>
-                        <div class="class-meta-item">
-                            <span class="meta-label">Time</span>
-                            <span class="meta-value">14:00 - 15:30</span>
+                        <div class="lecturer-info">
+                            <div class="lecturer-header">
+                                <span class="meta-label">Lecturer</span>
+                                <h3 class="meta-value">Sarah Johnson</h3>
+                            </div>
+                            <div class="class-timing">
+                                <div class="timing-item">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <circle cx="12" cy="12" r="10" />
+                                        <polyline points="12,6 12,12 16,14" />
+                                    </svg>
+                                    <span>14:00 - 15:30</span>
+                                </div>
+                                <div class="timing-item">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M12 2v10l4.5 4.5" />
+                                        <circle cx="12" cy="12" r="10" />
+                                    </svg>
+                                    <span>1h 30m</span>
+                                </div>
+                            </div>
                         </div>
-                        <div class="class-meta-item">
-                            <span class="meta-label">Duration</span>
-                            <span class="meta-value">1h 30m</span>
+                        <div class="lecturer-arrow">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M9 18l6-6-6-6" />
+                            </svg>
                         </div>
                     </div>
 
                     <div class="class-resources">
                         <span class="resources-label">Resources</span>
-                        <div class="resource-links">
-                            <a href="#" class="resource-link">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
-                                    <polyline points="14 2 14 8 20 8" />
-                                </svg>
-                                <span>Lecture Slides.pdf</span>
+                        <div class="resource-flex-row">
+                            <a href="#" class="resource-mini-card">
+                                <div class="resource-icon pdf">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                                        <polyline points="14 2 14 8 20 8" />
+                                    </svg>
+                                </div>
+                                <span>Slides.pdf</span>
                             </a>
-                            <a href="#" class="resource-link">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <path d="M16 18l6-6-6-6M8 6l-6 6 6 6" />
-                                </svg>
-                                <span>Code Snippets</span>
+                            <a href="#" class="resource-mini-card">
+                                <div class="resource-icon code">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M16 18l6-6-6-6M8 6l-6 6 6 6" />
+                                    </svg>
+                                </div>
+                                <span>Snippets</span>
                             </a>
                         </div>
                     </div>
@@ -176,18 +212,23 @@
                 </div>
             </section>
 
-            <!-- Attendance Status - Redesigned -->
-            <section class="home-goal" id="homeAttendanceSection">
-                <div class="home-goal-icon">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-                    </svg>
+            <!-- Logbook CTA - Redesigned -->
+            <section class="logbook-cta-section" id="logbookCtaSection">
+                <div class="logbook-cta-content">
+                    <div class="logbook-cta-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z" />
+                            <path d="M8 7h8M8 11h8M8 15h5" />
+                        </svg>
+                    </div>
+                    <div class="logbook-cta-text">
+                        <span class="logbook-cta-label">Logbook</span>
+                        <span class="logbook-cta-value" id="logbookStatusText">You haven't logged today</span>
+                    </div>
                 </div>
-                <div class="home-goal-text">
-                    <span class="home-goal-label">Attendance status</span>
-                    <span class="home-goal-value" id="homeAttendanceStatusText">You haven't logged today</span>
-                </div>
-                <button class="nav-log-btn" id="homeLogAttendanceBtn">Log</button>
+                <button class="logbook-cta-btn" id="logbookCtaBtn">
+                    <span>Add Today's Log</span>
+                </button>
             </section>
 
             <!-- Quick Stats Row -->
@@ -304,10 +345,11 @@
                 </div>
             </section>
 
-            <section class="section">
+            <!-- Current Week -->
+            <section class="section" style="margin-top: 20px;">
                 <div class="section-header">
                     <h2 class="section-title">This Week</h2>
-                    <button class="view-all-btn">History</button>
+                    <span class="week-date-range">Jan 13 - 19</span>
                 </div>
                 <div class="weekly-grid">
                     <div class="week-day completed">
@@ -360,6 +402,156 @@
                         <span class="week-day-name">Sun</span>
                         <div class="week-day-indicator empty"></div>
                         <span class="week-day-hours">--</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Previous Weeks - Collapsible Cards -->
+            <section class="section attendance-history">
+                <h2 class="section-title" style="margin-bottom: 16px;">Previous Weeks</h2>
+
+                <div class="week-collapse-card" data-week="prev-1">
+                    <div class="week-collapse-header">
+                        <div class="week-collapse-info">
+                            <span class="week-collapse-title">Week of Jan 6 - 12</span>
+                            <span class="week-collapse-summary">28h total • 5 days</span>
+                        </div>
+                        <button class="week-collapse-toggle" aria-label="Expand week">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="6,9 12,15 18,9" />
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="week-collapse-content">
+                        <div class="weekly-grid mini">
+                            <div class="week-day completed"><span class="week-day-name">M</span>
+                                <div class="week-day-indicator"><svg viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z" />
+                                    </svg></div><span class="week-day-hours">6h</span>
+                            </div>
+                            <div class="week-day completed"><span class="week-day-name">T</span>
+                                <div class="week-day-indicator"><svg viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z" />
+                                    </svg></div><span class="week-day-hours">5h</span>
+                            </div>
+                            <div class="week-day completed"><span class="week-day-name">W</span>
+                                <div class="week-day-indicator"><svg viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z" />
+                                    </svg></div><span class="week-day-hours">6h</span>
+                            </div>
+                            <div class="week-day completed"><span class="week-day-name">T</span>
+                                <div class="week-day-indicator"><svg viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z" />
+                                    </svg></div><span class="week-day-hours">5h</span>
+                            </div>
+                            <div class="week-day completed"><span class="week-day-name">F</span>
+                                <div class="week-day-indicator"><svg viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z" />
+                                    </svg></div><span class="week-day-hours">6h</span>
+                            </div>
+                            <div class="week-day"><span class="week-day-name">S</span>
+                                <div class="week-day-indicator empty"></div><span class="week-day-hours">--</span>
+                            </div>
+                            <div class="week-day"><span class="week-day-name">S</span>
+                                <div class="week-day-indicator empty"></div><span class="week-day-hours">--</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="week-collapse-card" data-week="prev-2">
+                    <div class="week-collapse-header">
+                        <div class="week-collapse-info">
+                            <span class="week-collapse-title">Week of Dec 30 - Jan 5</span>
+                            <span class="week-collapse-summary">24h total • 4 days</span>
+                        </div>
+                        <button class="week-collapse-toggle" aria-label="Expand week">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="6,9 12,15 18,9" />
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="week-collapse-content">
+                        <div class="weekly-grid mini">
+                            <div class="week-day"><span class="week-day-name">M</span>
+                                <div class="week-day-indicator empty"></div><span class="week-day-hours">--</span>
+                            </div>
+                            <div class="week-day completed"><span class="week-day-name">T</span>
+                                <div class="week-day-indicator"><svg viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z" />
+                                    </svg></div><span class="week-day-hours">6h</span>
+                            </div>
+                            <div class="week-day completed"><span class="week-day-name">W</span>
+                                <div class="week-day-indicator"><svg viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z" />
+                                    </svg></div><span class="week-day-hours">6h</span>
+                            </div>
+                            <div class="week-day completed"><span class="week-day-name">T</span>
+                                <div class="week-day-indicator"><svg viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z" />
+                                    </svg></div><span class="week-day-hours">6h</span>
+                            </div>
+                            <div class="week-day completed"><span class="week-day-name">F</span>
+                                <div class="week-day-indicator"><svg viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z" />
+                                    </svg></div><span class="week-day-hours">6h</span>
+                            </div>
+                            <div class="week-day"><span class="week-day-name">S</span>
+                                <div class="week-day-indicator empty"></div><span class="week-day-hours">--</span>
+                            </div>
+                            <div class="week-day"><span class="week-day-name">S</span>
+                                <div class="week-day-indicator empty"></div><span class="week-day-hours">--</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="week-collapse-card" data-week="prev-3">
+                    <div class="week-collapse-header">
+                        <div class="week-collapse-info">
+                            <span class="week-collapse-title">Week of Dec 23 - 29</span>
+                            <span class="week-collapse-summary">30h total • 5 days</span>
+                        </div>
+                        <button class="week-collapse-toggle" aria-label="Expand week">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="6,9 12,15 18,9" />
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="week-collapse-content">
+                        <div class="weekly-grid mini">
+                            <div class="week-day completed"><span class="week-day-name">M</span>
+                                <div class="week-day-indicator"><svg viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z" />
+                                    </svg></div><span class="week-day-hours">6h</span>
+                            </div>
+                            <div class="week-day completed"><span class="week-day-name">T</span>
+                                <div class="week-day-indicator"><svg viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z" />
+                                    </svg></div><span class="week-day-hours">6h</span>
+                            </div>
+                            <div class="week-day completed"><span class="week-day-name">W</span>
+                                <div class="week-day-indicator"><svg viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z" />
+                                    </svg></div><span class="week-day-hours">6h</span>
+                            </div>
+                            <div class="week-day completed"><span class="week-day-name">T</span>
+                                <div class="week-day-indicator"><svg viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z" />
+                                    </svg></div><span class="week-day-hours">6h</span>
+                            </div>
+                            <div class="week-day completed"><span class="week-day-name">F</span>
+                                <div class="week-day-indicator"><svg viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z" />
+                                    </svg></div><span class="week-day-hours">6h</span>
+                            </div>
+                            <div class="week-day"><span class="week-day-name">S</span>
+                                <div class="week-day-indicator empty"></div><span class="week-day-hours">--</span>
+                            </div>
+                            <div class="week-day"><span class="week-day-name">S</span>
+                                <div class="week-day-indicator empty"></div><span class="week-day-hours">--</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </section>
