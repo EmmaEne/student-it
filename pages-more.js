@@ -1105,29 +1105,25 @@ function initAnnouncements() {
 
 // Navigate to Subpage
 function navigateToSubpage(pageId) {
-    const pages = document.querySelectorAll('.page');
-    const navItems = document.querySelectorAll('.nav-item');
-
-    // Hide all pages
-    pages.forEach(page => page.classList.remove('active'));
-
-    // Show target page
-    const targetPage = document.getElementById(pageId);
-    if (targetPage) {
-        targetPage.classList.add('active');
+    if (typeof window.navigateToPage === 'function') {
+        window.navigateToPage(pageId);
+    } else {
+        // Fallback if navigateToPage not ready (shouldn't happen)
+        const pages = document.querySelectorAll('.page');
+        pages.forEach(page => page.classList.remove('active'));
+        const targetPage = document.getElementById(pageId);
+        if (targetPage) targetPage.classList.add('active');
+        window.scrollTo(0, 0);
     }
 
-    // Clear nav active states for subpages
+    // Keep More nav active for subpages (override navigateToPage's nav handling)
+    const navItems = document.querySelectorAll('.nav-item');
     navItems.forEach(nav => nav.classList.remove('active'));
 
-    // Keep More nav active for subpages
     const moreNav = document.querySelector('[data-page="more"]');
     if (moreNav) {
         moreNav.classList.add('active');
     }
-
-    // Scroll to top
-    window.scrollTo(0, 0);
 }
 
 

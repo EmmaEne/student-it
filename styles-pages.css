@@ -775,7 +775,7 @@
 
     .projects-desktop-layout {
         display: grid;
-        grid-template-columns: 1fr 320px;
+        grid-template-columns: 3fr 1fr;
         gap: 32px;
         align-items: flex-start;
     }

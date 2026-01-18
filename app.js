@@ -59,6 +59,8 @@ const notificationBtn = document.getElementById('notificationBtn');
 let isCheckedIn = false;
 let checkInTime = null;
 let durationInterval = null;
+window.navigationHistory = []; // History stack
+window.pageScrollPositions = {}; // Scroll positions
 
 // Navigation logic
 const globalBackContainer = document.getElementById('globalBackContainer');
@@ -78,13 +80,26 @@ navItems.forEach(item => {
     });
 });
 
-function navigateToPage(pageId) {
+window.navigateToPage = function (pageId, isBack = false) {
     const navItems = document.querySelectorAll('.nav-item');
     const pages = document.querySelectorAll('.page');
     const headerBackBtn = document.getElementById('headerBackBtn');
     const headerUserInfo = document.getElementById('headerUserInfo');
     const globalBackContainer = document.getElementById('globalBackContainer');
-    const greetingEl = document.querySelector('.greeting');
+    const greetingEl = document.querySelector('.greeting-text'); // Changed selector to be more specific just in case
+
+    // Get current active page
+    const currentActivePage = document.querySelector('.page.active');
+    const currentActiveId = currentActivePage ? currentActivePage.id : null;
+
+    // Avoid pushing to history if navigating to the same page
+    if (currentActiveId === pageId) return;
+
+    // Handle History & Scroll
+    if (!isBack && currentActiveId) {
+        window.navigationHistory.push(currentActiveId);
+        window.pageScrollPositions[currentActiveId] = window.scrollY;
+    }
 
     // Update nav items
     navItems.forEach(nav => {
@@ -113,8 +128,12 @@ function navigateToPage(pageId) {
         if (greetingEl) greetingEl.style.display = 'block';
     }
 
-    // Scroll to top
-    window.scrollTo(0, 0);
+    // Handle Scroll Restoration or Reset
+    if (isBack && window.pageScrollPositions[pageId] !== undefined) {
+        window.scrollTo(0, window.pageScrollPositions[pageId]);
+    } else {
+        window.scrollTo(0, 0);
+    }
 
     // Haptic feedback simulation
     if (navigator.vibrate) {
@@ -126,8 +145,14 @@ function navigateToPage(pageId) {
 document.addEventListener('DOMContentLoaded', () => {
     const headerBackBtn = document.getElementById('headerBackBtn');
     if (headerBackBtn) {
-        headerBackBtn.addEventListener('click', () => {
-            navigateToPage('dashboard');
+        headerBackBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            if (window.navigationHistory.length > 0) {
+                const prevPage = window.navigationHistory.pop();
+                navigateToPage(prevPage, true);
+            } else {
+                navigateToPage('dashboard', true);
+            }
         });
     }
 });
