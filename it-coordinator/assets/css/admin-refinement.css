@@ -1,0 +1,37 @@
+/* 
+ * Administrator UI Refinements
+ * Refines the main content area with a subtle whitish-blue background.
+ */
+
+/* 
+ * Apply a subtle, cool-toned whitish-blue to the main body wrapper. 
+ * This adds depth and modern polish while reducing the harshness of pure white.
+ */
+.body-wrapper {
+    background-color: #f4f7fb !important;
+    min-height: 100vh;
+}
+
+/* 
+ * Ensure the sidebar remains completely unchanged and distinct.
+ * We reinforce its white background to maintain contrast against the refined body.
+ */
+.left-sidebar {
+    background-color: #ffffff !important;
+}
+
+/* 
+ * The app header maintains its white background for a clean, professional look.
+ */
+.app-header {
+    background-color: #ffffff !important;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05); /* Subtle border for separation */
+}
+
+/* 
+ * Optional: Ensure cards stand out against the new background
+ * Cards should remain pure white to create a layered "desktop app" feel.
+ */
+.card {
+    background-color: #ffffff !important;
+}
