@@ -25,13 +25,17 @@
  */
 .app-header {
     background-color: #ffffff !important;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.05); /* Subtle border for separation */
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    /* Subtle border for separation */
 }
 
 /* 
- * Optional: Ensure cards stand out against the new background
- * Cards should remain pure white to create a layered "desktop app" feel.
+ * Card Refinement
+ * Removes shadows from cards for a clean, flat aesthetic.
+ * A very subtle border is added to maintain definition against the new background.
  */
 .card {
     background-color: #ffffff !important;
+    box-shadow: none !important;
+    border: 1px solid rgba(0, 0, 0, 0.05) !important;
 }
