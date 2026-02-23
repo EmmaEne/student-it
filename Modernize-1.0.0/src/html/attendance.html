@@ -1,0 +1,314 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Attendance Overview - Supervisor Dashboard</title>
+    <link rel="shortcut icon" type="image/png" href="../../../core/assets/logo/logo.svg" />
+    <link rel="stylesheet" href="../assets/css/styles.css" />
+    <link rel="stylesheet" href="../assets/css/admin-refinement.css" />
+</head>
+
+<body>
+    <!--  Body Wrapper -->
+    <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
+        data-sidebar-position="fixed" data-header-position="fixed">
+        <!-- Sidebar Start -->
+        <aside class="left-sidebar">
+            <!-- Sidebar scroll-->
+            <div>
+                <div class="brand-logo d-flex align-items-center justify-content-between">
+                    <a href="./supervisor-dashboard.html" class="text-nowrap logo-img">
+                        <img src="../../../core/assets/logo/logo.svg" width="100" alt="" />
+                    </a>
+                    <div class="close-btn d-xl-none d-block sidebartoggler cursor-pointer" id="sidebarCollapse">
+                        <i class="ti ti-x fs-8"></i>
+                    </div>
+                </div>
+                <!-- Sidebar navigation-->
+                <nav class="sidebar-nav scroll-sidebar" data-simplebar="">
+                    <ul id="sidebarnav">
+                        <li class="nav-small-cap">
+                            <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
+                            <span class="hide-menu">Overview</span>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="./supervisor-dashboard.html" aria-expanded="false">
+                                <span>
+                                    <i class="ti ti-layout-dashboard"></i>
+                                </span>
+                                <span class="hide-menu">Dashboard</span>
+                            </a>
+                        </li>
+                        <li class="nav-small-cap">
+                            <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
+                            <span class="hide-menu">ACADEMICS</span>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link active" href="attendance.html" aria-expanded="false">
+                                <span>
+                                    <i class="ti ti-calendar"></i>
+                                </span>
+                                <span class="hide-menu">Attendance</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="projects.html" aria-expanded="false">
+                                <span>
+                                    <i class="ti ti-package"></i>
+                                </span>
+                                <span class="hide-menu">Projects</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="students.html" aria-expanded="false">
+                                <span>
+                                    <i class="ti ti-users"></i>
+                                </span>
+                                <span class="hide-menu">Students</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="logbook.html" aria-expanded="false">
+                                <span>
+                                    <i class="ti ti-file-description"></i>
+                                </span>
+                                <span class="hide-menu">Reports / Logbook</span>
+                            </a>
+                        </li>
+                        <li class="nav-small-cap">
+                            <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
+                            <span class="hide-menu">ACCOUNT</span>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="./authentication-login.html" aria-expanded="false">
+                                <span>
+                                    <i class="ti ti-login"></i>
+                                </span>
+                                <span class="hide-menu">Login</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="./authentication-register.html" aria-expanded="false">
+                                <span>
+                                    <i class="ti ti-user-plus"></i>
+                                </span>
+                                <span class="hide-menu">Register</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </aside>
+        <!--  Sidebar End -->
+        <!--  Main wrapper -->
+        <div class="body-wrapper">
+            <!--  Header Start -->
+            <header class="app-header">
+                <nav class="navbar navbar-expand-lg navbar-light">
+                    <h4 class="fw-semibold mb-0">Attendance Overview</h4>
+                    <div class="navbar-collapse justify-content-end px-0" id="navbarNav">
+                        <ul class="navbar-nav flex-row ms-auto align-items-center justify-content-end">
+                            <li class="nav-item dropdown">
+                                <a class="nav-link nav-icon-hover" href="javascript:void(0)" id="drop2"
+                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                    <img src="../assets/images/profile/user-1.jpg" alt="" width="35" height="35"
+                                        class="rounded-circle">
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-end dropdown-menu-animate-up"
+                                    aria-labelledby="drop2">
+                                    <div class="message-body">
+                                        <a href="javascript:void(0)"
+                                            class="d-flex align-items-center gap-2 dropdown-item">
+                                            <i class="ti ti-user fs-6"></i>
+                                            <p class="mb-0 fs-3">My Profile</p>
+                                        </a>
+                                        <a href="./authentication-login.html"
+                                            class="btn btn-outline-primary mx-3 mt-2 d-block">Logout</a>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+            </header>
+            <!--  Header End -->
+            <div class="container-fluid">
+                <!-- Summary Cards -->
+                <div class="row">
+                    <div class="col-lg-4">
+                        <div class="card overflow-hidden">
+                            <div class="card-body p-4 text-center">
+                                <h5 class="card-title mb-4 fw-semibold text-muted">Average Attendance</h5>
+                                <h2 class="fw-bold mb-2">86%</h2>
+                                <span class="badge bg-light-success text-success fw-semibold">+2.5% from last
+                                    month</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="card overflow-hidden">
+                            <div class="card-body p-4 text-center">
+                                <h5 class="card-title mb-4 fw-semibold text-muted">Late Arrivals</h5>
+                                <h2 class="fw-bold mb-2">14</h2>
+                                <span class="badge bg-light-warning text-warning fw-semibold">Stable week-on-week</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="card overflow-hidden">
+                            <div class="card-body p-4 text-center">
+                                <h5 class="card-title mb-4 fw-semibold text-muted">Total Absences</h5>
+                                <h2 class="fw-bold mb-2">32</h2>
+                                <span class="badge bg-light-danger text-danger fw-semibold">8 unexcused</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Filters & Search -->
+                <div class="card bg-white shadow-none border mb-4">
+                    <div class="card-body p-3">
+                        <div class="d-flex align-items-center justify-content-between gap-2">
+                            <div class="position-relative w-50">
+                                <input type="text" class="form-control ps-5"
+                                    placeholder="Search by student or batch...">
+                                <i
+                                    class="ti ti-search position-absolute top-50 start-0 translate-middle-y ms-3 text-muted"></i>
+                            </div>
+                            <div class="d-flex align-items-center gap-2">
+                                <select class="form-select border-1" style="width: 150px;">
+                                    <option selected>All Batches</option>
+                                    <option>Batch 2024-A</option>
+                                    <option>Batch 2024-B</option>
+                                </select>
+                                <button class="btn btn-primary d-flex align-items-center gap-2">
+                                    <i class="ti ti-download"></i> Export CSV
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Attendance Table -->
+                <div class="card border">
+                    <div class="card-body p-0">
+                        <div class="table-responsive">
+                            <table class="table text-nowrap mb-0 align-middle table-hover">
+                                <thead class="text-dark fs-4 bg-light">
+                                    <tr>
+                                        <th class="border-bottom-0">
+                                            <h6 class="fw-semibold mb-0">Student</h6>
+                                        </th>
+                                        <th class="border-bottom-0">
+                                            <h6 class="fw-semibold mb-0">Batch</h6>
+                                        </th>
+                                        <th class="border-bottom-0">
+                                            <h6 class="fw-semibold mb-0">Rate</h6>
+                                        </th>
+                                        <th class="border-bottom-0">
+                                            <h6 class="fw-semibold mb-0">Days Present</h6>
+                                        </th>
+                                        <th class="border-bottom-0">
+                                            <h6 class="fw-semibold mb-0">Status</h6>
+                                        </th>
+                                        <th class="border-bottom-0"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <img src="../assets/images/profile/user-1.jpg" alt="" width="35"
+                                                    height="35" class="rounded-circle me-3">
+                                                <div>
+                                                    <h6 class="fw-semibold mb-0">Ethan Thompson</h6>
+                                                    <span class="fs-2 text-muted">ID: MT-2024-0452</span>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>Batch 2024 - A</td>
+                                        <td>
+                                            <div class="d-flex align-items-center gap-2">
+                                                <div class="progress w-100"
+                                                    style="height: 6px; width: 80px !important;">
+                                                    <div class="progress-bar bg-success" style="width: 92%"></div>
+                                                </div>
+                                                <span class="fw-semibold fs-2">92%</span>
+                                            </div>
+                                        </td>
+                                        <td>46 / 50</td>
+                                        <td><span
+                                                class="badge bg-light-success text-success fw-semibold">Excellent</span>
+                                        </td>
+                                        <td class="text-end pe-4"><i class="ti ti-chevron-right text-muted"></i></td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <img src="../assets/images/profile/user-2.jpg" alt="" width="35"
+                                                    height="35" class="rounded-circle me-3">
+                                                <div>
+                                                    <h6 class="fw-semibold mb-0">Samantha Reed</h6>
+                                                    <span class="fs-2 text-muted">ID: MT-2024-0128</span>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>Batch 2024 - B</td>
+                                        <td>
+                                            <div class="d-flex align-items-center gap-2">
+                                                <div class="progress w-100"
+                                                    style="height: 6px; width: 80px !important;">
+                                                    <div class="progress-bar bg-danger" style="width: 65%"></div>
+                                                </div>
+                                                <span class="fw-semibold fs-2">65%</span>
+                                            </div>
+                                        </td>
+                                        <td>32 / 50</td>
+                                        <td><span class="badge bg-light-danger text-danger fw-semibold">Critical</span>
+                                        </td>
+                                        <td class="text-end pe-4"><i class="ti ti-chevron-right text-muted"></i></td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <img src="../assets/images/profile/user-3.jpg" alt="" width="35"
+                                                    height="35" class="rounded-circle me-3">
+                                                <div>
+                                                    <h6 class="fw-semibold mb-0">Marcus Chen</h6>
+                                                    <span class="fs-2 text-muted">ID: MT-2024-0891</span>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>Batch 2024 - A</td>
+                                        <td>
+                                            <div class="d-flex align-items-center gap-2">
+                                                <div class="progress w-100"
+                                                    style="height: 6px; width: 80px !important;">
+                                                    <div class="progress-bar bg-warning" style="width: 85%"></div>
+                                                </div>
+                                                <span class="fw-semibold fs-2">85%</span>
+                                            </div>
+                                        </td>
+                                        <td>42 / 50</td>
+                                        <td><span class="badge bg-light-warning text-warning fw-semibold">Warning</span>
+                                        </td>
+                                        <td class="text-end pe-4"><i class="ti ti-chevron-right text-muted"></i></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="../assets/libs/jquery/dist/jquery.min.js"></script>
+    <script src="../assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../assets/js/sidebarmenu.js"></script>
+    <script src="../assets/js/app.min.js"></script>
+    <script src="../assets/libs/simplebar/dist/simplebar.js"></script>
+</body>
+
+</html>

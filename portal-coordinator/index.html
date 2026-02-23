@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Supervisor Dashboard | ARVYS</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="css/admin-system.css">
+</head>
+
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="brand-section">
+                <div class="brand-logo">A</div>
+                <div class="brand-name">ARVYS</div>
+            </div>
+
+            <div class="user-profile-snippet">
+                <img src="https://ui-avatars.com/api/?name=Mr+Johnson&background=0D8ABC&color=fff&size=128"
+                    alt="Profile" class="snippet-avatar">
+                <div class="snippet-name">Mr. Johnson</div>
+                <div class="snippet-role">Supervisor</div>
+                <button onclick="logout()"
+                    style="margin-top:0.5rem; background:none; border:none; color:var(--primary-600); font-size:0.8rem; cursor:pointer; font-weight:600;">Log
+                    Out</button>
+            </div>
+
+            <nav class="nav-links">
+                <div class="sidebar-nav-item active" data-page="dashboard">
+                    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6">
+                        </path>
+                    </svg>
+                    Home
+                </div>
+                <div class="sidebar-nav-item" data-page="attendance">
+                    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z">
+                        </path>
+                    </svg>
+                    Attendance
+                </div>
+                <div class="sidebar-nav-item" data-page="students">
+                    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z">
+                        </path>
+                    </svg>
+                    Students
+                </div>
+                <div class="sidebar-nav-item" data-page="reports">
+                    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 002 2h2a2 2 0 002-2z">
+                        </path>
+                    </svg>
+                    Reports
+                </div>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="top-header">
+                <div class="header-tabs">
+                    <div class="header-tab active" data-page="dashboard">Dashboard</div>
+                    <div class="header-tab" data-page="attendance">Attendance</div>
+                    <div class="header-tab" data-page="students">Properties</div>
+                    <div class="header-tab" data-page="reports">Analytics</div>
+                </div>
+                <div class="header-actions">
+                    <img src="https://ui-avatars.com/api/?name=Mr+Johnson&background=0D8ABC&color=fff"
+                        style="width:32px; height:32px; border-radius:50%; border:2px solid white; box-shadow: 0 1px 3px rgba(0,0,0,0.1);"
+                        alt="User">
+                </div>
+            </header>
+
+            <div class="content-scroll">
+
+                <!-- DASHBOARD VIEW -->
+                <div id="dashboard" class="page active">
+                    <div class="section-header">
+                        <h2 class="section-title">Supervisor</h2>
+                        <p class="section-subtitle">Today's Classes & Overview</p>
+                    </div>
+
+                    <!-- Classes Cards -->
+                    <div class="card-grid">
+                        <!-- Card 1 -->
+                        <div class="info-card">
+                            <div class="card-top">
+                                <span class="time-pill">9:00 AM – 10:30 AM</span>
+                                <span class="batch-tag">Batch 4</span>
+                            </div>
+                            <h3 class="card-title">Frontend Development</h3>
+                            <div class="card-detail">Year 3 & 4 • Lab A</div>
+
+                            <div class="stats-row">
+                                <div class="stat-item">
+                                    <div class="icon-circle">✓</div>
+                                    <span>15 of 18 present</span>
+                                </div>
+                                <span class="score-badge">83%</span>
+                            </div>
+                        </div>
+
+                        <!-- Card 2 -->
+                        <div class="info-card">
+                            <div class="card-top">
+                                <span class="time-pill">11:00 AM – 12:30 PM</span>
+                                <span class="batch-tag">Batch 3</span>
+                            </div>
+                            <h3 class="card-title">Backend Development</h3>
+                            <div class="card-detail">Year 4 • Lab B</div>
+
+                            <div class="stats-row">
+                                <div class="stat-item">
+                                    <div class="icon-circle">✓</div>
+                                    <span>22 of 24 present</span>
+                                </div>
+                                <span class="score-badge">92%</span>
+                            </div>
+                        </div>
+
+                        <!-- Card 3 -->
+                        <div class="info-card">
+                            <div class="card-top">
+                                <span class="time-pill">2:00 PM – 3:30 PM</span>
+                                <span class="batch-tag">Batch 2</span>
+                            </div>
+                            <h3 class="card-title">UI/UX Design</h3>
+                            <div class="card-detail">Year 3 • Lab C</div>
+
+                            <div class="stats-row">
+                                <div class="stat-item">
+                                    <div class="icon-circle">✓</div>
+                                    <span>16 of 20 present</span>
+                                </div>
+                                <span class="score-badge">80%</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="section-header" style="margin-top: 2rem;">
+                        <h2 class="section-title">Class Video Feed</h2>
+                        <p class="section-subtitle">Live surveillance from active labs</p>
+                    </div>
+
+                    <div class="video-section">
+                        <!-- Video 1 -->
+                        <div class="video-item">
+                            <div class="video-thumb-wrapper">
+                                <img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80"
+                                    class="video-img" alt="Class">
+                                <div class="live-badge">
+                                    <div class="live-dot"></div> LIVE
+                                </div>
+                                <div class="play-action">
+                                    <div class="btn-play">
+                                        <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
+                                            <path
+                                                d="M6.3 2.841A1.5 1.5 0 004 4.11V15.89a1.5 1.5 0 002.3 1.269l9.344-5.89a1.5 1.5 0 000-2.538L6.3 2.84z" />
+                                        </svg>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="video-details">
+                                <div class="video-h">Frontend Development</div>
+                                <div class="video-sub">Batch 4 • Lab A</div>
+                                <div class="stat-item" style="font-size: 0.8rem;">
+                                    <span class="score-badge" style="background:#ECFDF5; color:#065F46">83%
+                                        Attendance</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Video 2 -->
+                        <div class="video-item">
+                            <div class="video-thumb-wrapper">
+                                <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80"
+                                    class="video-img" alt="Class">
+                                <div class="live-badge">
+                                    <div class="live-dot"></div> LIVE
+                                </div>
+                                <div class="play-action">
+                                    <div class="btn-play">▶</div>
+                                </div>
+                            </div>
+                            <div class="video-details">
+                                <div class="video-h">Backend Ops</div>
+                                <div class="video-sub">Batch 3 • Lab B</div>
+                                <div class="stat-item" style="font-size: 0.8rem;">
+                                    <span class="score-badge" style="background:#ECFDF5; color:#065F46">92%
+                                        Attendance</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Video 3 -->
+                        <div class="video-item">
+                            <div class="video-thumb-wrapper">
+                                <img src="https://images.unsplash.com/photo-1506377247377-2a5b3b417ebb?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80"
+                                    class="video-img" alt="Class">
+                                <div class="live-badge">
+                                    <div class="live-dot"></div> LIVE
+                                </div>
+                                <div class="play-action">
+                                    <div class="btn-play">▶</div>
+                                </div>
+                            </div>
+                            <div class="video-details">
+                                <div class="video-h">System Arch</div>
+                                <div class="video-sub">Batch 1 • Lab C</div>
+                                <div class="stat-item" style="font-size: 0.8rem;">
+                                    <span class="score-badge" style="background:#ECFDF5; color:#065F46">95%
+                                        Attendance</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Video 4 -->
+                        <div class="video-item">
+                            <div class="video-thumb-wrapper">
+                                <img src="https://images.unsplash.com/photo-1531545514256-b1400bc00f31?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80"
+                                    class="video-img" alt="Class">
+                                <div class="live-badge">
+                                    <div class="live-dot"></div> LIVE
+                                </div>
+                                <div class="play-action">
+                                    <div class="btn-play">▶</div>
+                                </div>
+                            </div>
+                            <div class="video-details">
+                                <div class="video-h">UI/UX Design</div>
+                                <div class="video-sub">Batch 2 • Lab D</div>
+                                <div class="stat-item" style="font-size: 0.8rem;">
+                                    <span class="score-badge" style="background:#ECFDF5; color:#065F46">80%
+                                        Attendance</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- STUDENT PROFILE VIEW -->
+                <div id="students" class="page">
+                    <div class="profile-hero">
+                        <div class="ph-left">
+                            <img src="https://ui-avatars.com/api/?name=Emmanuella+Ene&background=DBEAFE&color=1D4ED8&size=128"
+                                alt="Student" class="ph-avatar">
+                            <div class="ph-info">
+                                <h1>Emmanuella Ene</h1>
+                                <div class="ph-meta">
+                                    <span>University of Lagos</span>
+                                    <span>•</span>
+                                    <span>ID: 2034567</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <button class="btn-flag">
+                                <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M3 21v-8a2 2 0 012-2h10a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2zM9 9h6v6H9V9z">
+                                    </path>
+                                </svg>
+                                Flag Student
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Profile Tabs -->
+                    <div class="header-tabs" style="margin-bottom: 2rem; border-bottom: 1px solid var(--border);">
+                        <div class="profile-tab active">Overview</div>
+                        <div class="profile-tab">Attendance</div>
+                        <div class="profile-tab">Projects</div>
+                        <div class="profile-tab">Logbook</div>
+                    </div>
+
+                    <div class="stats-grid-3">
+                        <div class="stat-box">
+                            <div class="sb-val" style="color: #059669">91%</div>
+                            <div class="sb-label">Attendance</div>
+                            <div class="sb-sub">31 of 34 days present</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="sb-val">4/5</div>
+                            <div class="sb-label">Submitted Projects</div>
+                            <div class="sb-sub">Last: React Components</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="sb-val">82%</div>
+                            <div class="sb-label">Logbook Completion</div>
+                            <div class="sb-sub">28 of 34 entries verified</div>
+                        </div>
+                    </div>
+
+                    <div class="section-header">
+                        <h3 class="section-title">Recent Activity</h3>
+                    </div>
+
+                    <div class="log-list">
+                        <!-- Item 1 -->
+                        <div class="log-item">
+                            <div class="log-date">Apr 23</div>
+                            <div class="log-badge">2%</div>
+                            <div class="log-text">Learned to create reusable React components</div>
+                            <div style="color:var(--text-muted)">Details ></div>
+                        </div>
+                        <!-- Item 2 -->
+                        <div class="log-item">
+                            <div class="log-date">Apr 22</div>
+                            <div class="log-badge">9%</div>
+                            <div class="log-text">Implemented responsive landing pages</div>
+                            <div style="color:var(--text-muted)">Details ></div>
+                        </div>
+                        <!-- Item 3 -->
+                        <div class="log-item">
+                            <div class="log-date">Apr 19</div>
+                            <div class="log-badge">9%</div>
+                            <div class="log-text">Studied JavaScript Promises & Async/Await</div>
+                            <div class="log-badge" style="background:#FEF3C7; color:#92400E; margin-left: auto;">Late
+                                Entry</div>
+                        </div>
+                        <!-- Item 4 -->
+                        <div class="log-item">
+                            <div class="log-date">Apr 18</div>
+                            <div class="log-badge">8%</div>
+                            <div class="log-text">CRUD operations with Node.js and MongoDB</div>
+                            <div style="color:var(--text-muted)">Details ></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Stub Pages -->
+                <div id="attendance" class="page">
+                    <div style="text-align: center; padding: 4rem; color: var(--text-muted);">Attendance management view
+                        under construction.</div>
+                </div>
+                <div id="reports" class="page">
+                    <div style="text-align: center; padding: 4rem; color: var(--text-muted);">Reports engine under
+                        construction.</div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Mobile Nav -->
+        <div class="mobile-nav">
+            <a href="#" class="sidebar-nav-item active" data-page="dashboard"
+                style="flex-direction:column; gap:4px; font-size:0.75rem; border:none; padding: 0;">
+                <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6">
+                    </path>
+                </svg>
+                Home
+            </a>
+            <a href="#" class="sidebar-nav-item" data-page="attendance"
+                style="flex-direction:column; gap:4px; font-size:0.75rem; border:none; padding: 0;">
+                <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z">
+                    </path>
+                </svg>
+                Attendance
+            </a>
+            <a href="#" class="sidebar-nav-item" data-page="students"
+                style="flex-direction:column; gap:4px; font-size:0.75rem; border:none; padding: 0;">
+                <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z">
+                    </path>
+                </svg>
+                Students
+            </a>
+        </div>
+    </div>
+
+    <style>
+        /* Specific overrides for profile tabs since I renamed them class */
+        .profile-tab {
+            padding: 0.5rem 1rem;
+            color: var(--text-muted);
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            font-weight: 500;
+        }
+
+        .profile-tab.active {
+            color: var(--primary);
+            border-bottom-color: var(--primary);
+        }
+    </style>
+
+    <script src="js/coordinator-app.js"></script>
+    <script src="js/admin-views.js"></script>
+</body>
+
+</html>
